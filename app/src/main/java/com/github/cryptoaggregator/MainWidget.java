@@ -7,6 +7,8 @@ import android.widget.RemoteViews;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.github.cryptoaggregator.updator.MainWidgetUpdator;
+
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link MainWidgetConfigureActivity MainWidgetConfigureActivity}
@@ -15,19 +17,7 @@ public class MainWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
-//        CharSequence widgetText = MainWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.main_widget);
-        views.setTextViewText(R.id.appwidget_text, "BTC");
-
-
-
-        RemoteViews record = new RemoteViews(context.getPackageName(), R.layout.main_record);
-        record.setTextViewText(R.id.record, "BTC");
-        views.addView(R.id.label_btc, record);
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        new MainWidgetUpdator(context, appWidgetManager, appWidgetId).update("BTC - 0 USD");
     }
 
     @Override
