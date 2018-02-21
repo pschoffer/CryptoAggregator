@@ -29,4 +29,9 @@ public class MainWidgetUpdator implements Updator {
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
+    @Override
+    public Context getContext() {
+        return context;
+    }
 }

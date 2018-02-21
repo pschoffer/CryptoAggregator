@@ -7,6 +7,7 @@ import android.widget.RemoteViews;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.github.cryptoaggregator.service.CoinMarketService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 
 /**
@@ -17,7 +18,10 @@ public class MainWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        new MainWidgetUpdator(context, appWidgetManager, appWidgetId).update("BTC - 0 USD");
+        final CoinMarketService coinMarketService = new CoinMarketService();
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId);
+
+        coinMarketService.triggerUpdate(mainWidgetUpdator);
     }
 
     @Override
