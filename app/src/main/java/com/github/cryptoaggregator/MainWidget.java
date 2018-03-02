@@ -22,6 +22,9 @@ public class MainWidget extends AppWidgetProvider {
         final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId);
 
         coinMarketService.triggerUpdate(mainWidgetUpdator);
+
+        final MainWidgetUpdator tempWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId);
+        tempWidgetUpdator.update("Loading ...");
     }
 
     @Override
