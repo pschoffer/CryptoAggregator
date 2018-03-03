@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/preview_text00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:text="BTC"
+        android:textColor="@color/colorText" />
+
+    <TextView
+        android:id="@+id/preview_text01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="3dp"
+        android:layout_toRightOf="@id/preview_text00"
+        android:text="XXX"
+        android:textColor="@color/colorText" />
+
+    <TextView
+        android:id="@+id/preview_text10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:layout_below="@id/preview_text00"
+        android:text="ETH"
+        android:textColor="@color/colorText" />
+
+    <TextView
+        android:id="@+id/preview_text11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="3dp"
+        android:layout_toRightOf="@id/preview_text10"
+        android:layout_below="@id/preview_text01"
+        android:text="XXX"
+        android:textColor="@color/colorText" />
+
+</RelativeLayout>

@@ -27,7 +27,7 @@ public class MainWidgetUpdator implements Updator {
         views.setTextViewText(R.id.appwidget_text, state);
 
 
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+//        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
