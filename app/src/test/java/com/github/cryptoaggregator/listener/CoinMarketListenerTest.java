@@ -16,7 +16,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -39,7 +38,7 @@ public class CoinMarketListenerTest {
         MockitoAnnotations.initMocks(this);
         PowerMockito.mockStatic(Log.class);
 
-        listener = new CoinMarketListener(updator);
+        listener = new CoinMarketListener(symbol, updator);
     }
 
     @Test
@@ -47,7 +46,7 @@ public class CoinMarketListenerTest {
         listener.onResponse(RESPONSE);
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(updator).update(argumentCaptor.capture());
+        verify(updator).update(symbol, argumentCaptor.capture());
         final String result = argumentCaptor.getValue();
 
         Assert.assertEquals(PRICE, result);
@@ -58,7 +57,7 @@ public class CoinMarketListenerTest {
         listener.onResponse("Wrong");
 
         ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(updator).update(argumentCaptor.capture());
+        verify(updator).update(symbol, argumentCaptor.capture());
         final String result = argumentCaptor.getValue();
 
         Assert.assertEquals(ERROR, result);

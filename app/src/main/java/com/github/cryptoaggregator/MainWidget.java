@@ -10,6 +10,9 @@ import android.widget.TextView;
 import com.github.cryptoaggregator.service.CoinMarketService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link MainWidgetConfigureActivity MainWidgetConfigureActivity}
@@ -19,12 +22,12 @@ public class MainWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         final CoinMarketService coinMarketService = new CoinMarketService();
-        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId);
+        List<String> symbols = new ArrayList<>();
+        symbols.add("BTC");
+        symbols.add("ETH");
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, symbols);
 
-        coinMarketService.triggerUpdate(mainWidgetUpdator);
-
-        final MainWidgetUpdator tempWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId);
-        tempWidgetUpdator.update("Loading ...");
+        coinMarketService.triggerUpdate(symbols, mainWidgetUpdator);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.github.cryptoaggregator.listener;
 
-import android.util.Log;
-
 import com.android.volley.Response;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
@@ -16,9 +14,11 @@ public class CoinMarketListener implements Response.Listener<String>{
     private final static String ERROR = "<ERROR>";
 
     private final Updator updator;
+    private final String symbol;
 
-    public CoinMarketListener(Updator updator) {
+    public CoinMarketListener(String symbol, Updator updator) {
         this.updator = updator;
+        this.symbol = symbol;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class CoinMarketListener implements Response.Listener<String>{
         try {
             final CoinInfo coinInfo = parseResponse(response);
 
-            updator.update(coinInfo.getPrice());
+            updator.update(symbol, coinInfo.getPrice());
         } catch (JsonSyntaxException ex) {
             Logger.error("Failed to parse the response", ex);
-            updator.update(ERROR);
+            updator.update(symbol, ERROR);
         }
     }
 

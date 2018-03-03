@@ -5,42 +5,25 @@
     android:background="@color/colorPrimary"
     android:padding="5dp">
 
+
     <TextView
-        android:id="@+id/preview_text00"
+        android:id="@+id/text_symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:padding="3dp"
-        android:text="BTC"
+        android:text="BTC\nETC"
         android:textColor="@color/colorText" />
 
     <TextView
-        android:id="@+id/preview_text01"
+        android:id="@+id/text_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="end"
+        android:layout_centerVertical="true"
         android:padding="3dp"
-        android:layout_toRightOf="@id/preview_text00"
-        android:text="XXX"
-        android:textColor="@color/colorText" />
-
-    <TextView
-        android:id="@+id/preview_text10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:layout_below="@id/preview_text00"
-        android:text="ETH"
-        android:textColor="@color/colorText" />
-
-    <TextView
-        android:id="@+id/preview_text11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="3dp"
-        android:layout_toRightOf="@id/preview_text10"
-        android:layout_below="@id/preview_text01"
-        android:text="XXX"
+        android:layout_toRightOf="@id/text_symbol"
+        android:text="XXX\nXXX"
         android:textColor="@color/colorText" />
 
 </RelativeLayout>

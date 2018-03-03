@@ -7,7 +7,7 @@ import android.content.Context;
  */
 
 public interface Updator {
-    void update(String state);
+    void update(String symbol, String state);
 
     Context getContext();
 }
