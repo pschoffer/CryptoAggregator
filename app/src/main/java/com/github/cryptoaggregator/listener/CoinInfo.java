@@ -2,6 +2,8 @@ package com.github.cryptoaggregator.listener;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 /**
  * Created by pschoffer on 2018-02-11.
  * This class holds information about specific coin
@@ -13,7 +15,7 @@ public class CoinInfo {
     private String name;
     private String symbol;
     @SerializedName("price_usd")
-    private String price;
+    private BigDecimal price;
 
     public String getId() {
         return id;
@@ -39,11 +41,11 @@ public class CoinInfo {
         this.symbol = symbol;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

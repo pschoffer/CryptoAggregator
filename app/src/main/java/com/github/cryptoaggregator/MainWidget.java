@@ -22,12 +22,12 @@ public class MainWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         final CoinMarketService coinMarketService = new CoinMarketService();
-        List<String> symbols = new ArrayList<>();
-        symbols.add("BTC");
-        symbols.add("ETH");
-        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, symbols);
+        List<String> coins = new ArrayList<>();
+        coins.add("bitcoin");
+        coins.add("ethereum");
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, coins);
 
-        coinMarketService.triggerUpdate(symbols, mainWidgetUpdator);
+        coinMarketService.triggerUpdate(coins, mainWidgetUpdator);
     }
 
     @Override

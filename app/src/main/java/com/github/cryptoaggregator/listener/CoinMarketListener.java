@@ -11,14 +11,12 @@ import com.google.gson.JsonSyntaxException;
  */
 
 public class CoinMarketListener implements Response.Listener<String>{
-    private final static String ERROR = "<ERROR>";
-
     private final Updator updator;
-    private final String symbol;
+    private final String coin;
 
-    public CoinMarketListener(String symbol, Updator updator) {
+    public CoinMarketListener(String coin, Updator updator) {
         this.updator = updator;
-        this.symbol = symbol;
+        this.coin = coin;
     }
 
     @Override
@@ -27,10 +25,10 @@ public class CoinMarketListener implements Response.Listener<String>{
         try {
             final CoinInfo coinInfo = parseResponse(response);
 
-            updator.update(symbol, coinInfo.getPrice());
+            updator.update(coin, coinInfo);
         } catch (JsonSyntaxException ex) {
             Logger.error("Failed to parse the response", ex);
-            updator.update(symbol, ERROR);
+            updator.update(coin, null);
         }
     }
 

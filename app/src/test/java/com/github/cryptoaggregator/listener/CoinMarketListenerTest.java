@@ -16,6 +16,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -24,42 +28,49 @@ import static org.mockito.Mockito.verify;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Log.class)
 public class CoinMarketListenerTest {
-    private static final String ERROR = "<ERROR>";
+    private static final BigDecimal PRICE_USD = new BigDecimal(10.1);
     private static final String PRICE = "10.1";
-    private static final String RESPONSE = "[ {\"price_usd\": \"" + PRICE + "\"} ]";
+    private static final String SYMBOL = "btc";
+    private static final String COIN = "bitcoin";
 
     @Mock
     private Updator updator;
 
     private CoinMarketListener listener;
 
+    private String response;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         PowerMockito.mockStatic(Log.class);
 
-        listener = new CoinMarketListener(symbol, updator);
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setMaximumFractionDigits(2);
+        response = "[ {\"price_usd\": \"" + decimalFormat.format(PRICE_USD) + "\", \"symbol\": \"" + SYMBOL + "\"} ]";
+        listener = new CoinMarketListener(COIN, updator);
     }
 
     @Test
     public void testOnResponseContainsResult() throws Exception {
-        listener.onResponse(RESPONSE);
+        listener.onResponse(response);
 
-        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(updator).update(symbol, argumentCaptor.capture());
-        final String result = argumentCaptor.getValue();
+        ArgumentCaptor<CoinInfo> argumentCaptor = ArgumentCaptor.forClass(CoinInfo.class);
+        verify(updator).update(eq(COIN), argumentCaptor.capture());
+        final CoinInfo state = argumentCaptor.getValue();
 
-        Assert.assertEquals(PRICE, result);
+        Assert.assertEquals(PRICE_USD.setScale(1, BigDecimal.ROUND_HALF_UP), state.getPrice());
+        Assert.assertEquals(SYMBOL, state.getSymbol());
     }
 
     @Test
     public void testOnResponseWrongFormat() throws Exception {
         listener.onResponse("Wrong");
 
-        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
-        verify(updator).update(symbol, argumentCaptor.capture());
-        final String result = argumentCaptor.getValue();
+        ArgumentCaptor<CoinInfo> argumentCaptor = ArgumentCaptor.forClass(CoinInfo.class);
+        verify(updator).update(eq(COIN), argumentCaptor.capture());
+        final CoinInfo state = argumentCaptor.getValue();
 
-        Assert.assertEquals(ERROR, result);
+        Assert.assertNull(state);
     }
 }

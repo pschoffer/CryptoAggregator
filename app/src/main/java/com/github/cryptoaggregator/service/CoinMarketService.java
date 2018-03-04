@@ -14,16 +14,16 @@ import java.util.List;
  */
 
 public class CoinMarketService implements CoinService {
-    private final static String URL = "https://api.coinmarketcap.com/v1/ticker/bitcoin/";
+    private final static String URL = "https://api.coinmarketcap.com/v1/ticker/";
 
     @Override
-    public void triggerUpdate(List<String> symbols, Updator updator) {
+    public void triggerUpdate(List<String> coins, Updator updator) {
 
         RequestQueue queue = Volley.newRequestQueue(updator.getContext());
 
-        for (String symbol : symbols) {
-            Response.Listener<String> listener = new CoinMarketListener(symbol, updator);
-            StringRequest request = new StringRequest(URL, listener, null);
+        for (String coin : coins) {
+            Response.Listener<String> listener = new CoinMarketListener(coin, updator);
+            StringRequest request = new StringRequest(URL + coin, listener, null);
             queue.add(request);
         }
     }
