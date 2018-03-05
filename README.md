@@ -4,7 +4,8 @@ The idea is to create a simple crypto widget that will fetch current price from
 [CoinMarket](https://coinmarketcap.com/). 
 
 ## TODO
-* Create loading bit
+* DI framework
+* Refactor loading logic (kinda similar to updator)
 * Refresh on touch
 * Create a setting screen and a way to move to it
 * Change what tokens to show (configuration).
