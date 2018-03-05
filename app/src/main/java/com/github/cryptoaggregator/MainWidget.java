@@ -3,10 +3,8 @@ package com.github.cryptoaggregator;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.widget.RemoteViews;
-import android.widget.TableLayout;
-import android.widget.TextView;
 
+import com.github.cryptoaggregator.android.RemoteViewsFactory;
 import com.github.cryptoaggregator.service.CoinMarketService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 
@@ -25,7 +23,7 @@ public class MainWidget extends AppWidgetProvider {
         List<String> coins = new ArrayList<>();
         coins.add("bitcoin");
         coins.add("ethereum");
-        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, coins);
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, new RemoteViewsFactory(), coins);
 
         coinMarketService.triggerUpdate(coins, mainWidgetUpdator);
     }
