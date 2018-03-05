@@ -29,7 +29,6 @@ import static org.mockito.Mockito.verify;
 @PrepareForTest(Log.class)
 public class CoinMarketListenerTest {
     private static final BigDecimal PRICE_USD = new BigDecimal(10.1);
-    private static final String PRICE = "10.1";
     private static final String SYMBOL = "btc";
     private static final String COIN = "bitcoin";
 

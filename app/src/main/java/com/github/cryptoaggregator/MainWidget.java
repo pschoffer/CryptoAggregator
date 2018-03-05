@@ -3,6 +3,7 @@ package com.github.cryptoaggregator;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.android.RemoteViewsFactory;
 import com.github.cryptoaggregator.service.CoinMarketService;
@@ -23,9 +24,26 @@ public class MainWidget extends AppWidgetProvider {
         List<String> coins = new ArrayList<>();
         coins.add("bitcoin");
         coins.add("ethereum");
-        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, new RemoteViewsFactory(), coins);
+        final RemoteViewsFactory remoteViewsFactory = new RemoteViewsFactory();
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, remoteViewsFactory, coins);
 
         coinMarketService.triggerUpdate(coins, mainWidgetUpdator);
+
+        StringBuilder symbols = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+        for (String coin : coins) {
+            if (!symbols.toString().isEmpty()) {
+                symbols.append("\n");
+                values.append("\n");
+            }
+            symbols.append(coin);
+            values.append("loading...");
+        }
+
+        final RemoteViews loadingViews = remoteViewsFactory.createInstance(context.getPackageName(), R.layout.main_widget);
+        loadingViews.setTextViewText(R.id.text_symbol, symbols.toString());
+        loadingViews.setTextViewText(R.id.text_value, values.toString());
+        appWidgetManager.updateAppWidget(appWidgetId, loadingViews);
     }
 
     @Override
