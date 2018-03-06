@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.R;
-import com.github.cryptoaggregator.service.android.RemoteViewsFactory;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.listener.CoinInfo;
 
 import java.math.BigDecimal;
@@ -22,15 +22,15 @@ public class MainWidgetUpdator implements Updator {
     private final Context context;
     private final AppWidgetManager appWidgetManager;
     private final int appWidgetId;
-    private final RemoteViewsFactory remoteViewsFactory;
+    private final WidgetRemoteViewsService widgetRemoteViewsService;
     private final Map<String, CoinInfo> results;
     private final List<String> coins;
 
-    public MainWidgetUpdator(Context context, AppWidgetManager appWidgetManager, int appWidgetId, RemoteViewsFactory remoteViewsFactory, List<String> coins) {
+    public MainWidgetUpdator(Context context, AppWidgetManager appWidgetManager, int appWidgetId, WidgetRemoteViewsService widgetRemoteViewsService, List<String> coins) {
         this.context = context;
         this.appWidgetManager = appWidgetManager;
         this.appWidgetId = appWidgetId;
-        this.remoteViewsFactory = remoteViewsFactory;
+        this.widgetRemoteViewsService = widgetRemoteViewsService;
 
         this.coins = coins;
         this.results = new HashMap<>();
@@ -61,7 +61,7 @@ public class MainWidgetUpdator implements Updator {
             values.append(state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
         }
 
-        final RemoteViews remoteViews = remoteViewsFactory.createInstance(context.getPackageName(), R.layout.main_widget);
+        final RemoteViews remoteViews = widgetRemoteViewsService.createInstance(context.getPackageName(), R.layout.main_widget);
         remoteViews.setTextViewText(R.id.text_symbol, symbols);
         remoteViews.setTextViewText(R.id.text_value, values);
 

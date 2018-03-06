@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.service.android.RemoteViewsFactory;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.listener.CoinInfo;
 
 import org.junit.Before;
@@ -39,7 +39,7 @@ public class MainWidgetUpdatorTest {
     @Mock
     private AppWidgetManager widgetManager;
     @Mock
-    private RemoteViewsFactory remoteViewsFactory;
+    private WidgetRemoteViewsService widgetRemoteViewsService;
     @Mock
     private RemoteViews remoteViews;
 
@@ -53,7 +53,7 @@ public class MainWidgetUpdatorTest {
         coinInfo1 = generateCoinInfo(COIN_1);
         coinInfo2 = generateCoinInfo(COIN_2);
 
-        when(remoteViewsFactory.createInstance(anyString(), anyInt())).thenReturn(remoteViews);
+        when(widgetRemoteViewsService.createInstance(anyString(), anyInt())).thenReturn(remoteViews);
     }
 
     private CoinInfo generateCoinInfo(String coinId) {
@@ -68,7 +68,7 @@ public class MainWidgetUpdatorTest {
     @Test
     public void testDoesntUpdateOnFirstResult() throws Exception {
         final List<String> coins = Arrays.asList(COIN_1, COIN_2);
-        updator = new MainWidgetUpdator(context, widgetManager, WIDGET_ID, remoteViewsFactory, coins);
+        updator = new MainWidgetUpdator(context, widgetManager, WIDGET_ID, widgetRemoteViewsService, coins);
 
         updator.update(COIN_1, coinInfo1);
 
@@ -78,7 +78,7 @@ public class MainWidgetUpdatorTest {
     @Test
     public void testDoesUpdateOnAllResults() throws Exception {
         final List<String> coins = Arrays.asList(COIN_1, COIN_2);
-        updator = new MainWidgetUpdator(context, widgetManager, WIDGET_ID, remoteViewsFactory, coins);
+        updator = new MainWidgetUpdator(context, widgetManager, WIDGET_ID, widgetRemoteViewsService, coins);
 
         updator.update(COIN_1, coinInfo1);
         updator.update(COIN_2, coinInfo2);
