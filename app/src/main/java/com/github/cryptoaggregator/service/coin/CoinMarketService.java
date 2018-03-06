@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.service;
+package com.github.cryptoaggregator.service.coin;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;

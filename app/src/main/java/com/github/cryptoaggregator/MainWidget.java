@@ -5,8 +5,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.android.RemoteViewsFactory;
-import com.github.cryptoaggregator.service.CoinMarketService;
+import com.github.cryptoaggregator.service.android.RemoteViewsFactory;
+import com.github.cryptoaggregator.service.coin.CoinMarketService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.service;
+package com.github.cryptoaggregator.service.coin;
 
 import com.github.cryptoaggregator.updator.Updator;
 

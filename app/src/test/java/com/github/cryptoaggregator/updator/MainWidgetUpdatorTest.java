@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.android.RemoteViewsFactory;
+import com.github.cryptoaggregator.service.android.RemoteViewsFactory;
 import com.github.cryptoaggregator.listener.CoinInfo;
 
 import org.junit.Before;

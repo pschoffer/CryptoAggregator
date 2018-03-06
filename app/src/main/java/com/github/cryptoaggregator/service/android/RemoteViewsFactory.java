@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.android;
+package com.github.cryptoaggregator.service.android;
 
 import android.widget.RemoteViews;
 

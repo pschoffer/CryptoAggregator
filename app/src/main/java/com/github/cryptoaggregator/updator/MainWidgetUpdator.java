@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.R;
-import com.github.cryptoaggregator.android.RemoteViewsFactory;
+import com.github.cryptoaggregator.service.android.RemoteViewsFactory;
 import com.github.cryptoaggregator.listener.CoinInfo;
 
 import java.math.BigDecimal;
