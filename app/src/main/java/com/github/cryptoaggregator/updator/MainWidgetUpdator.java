@@ -5,9 +5,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.R;
-import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.listener.CoinInfo;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -47,23 +46,16 @@ public class MainWidgetUpdator implements Updator {
 
     @NonNull
     private RemoteViews configureRemoteViews() {
-        StringBuilder symbols = new StringBuilder();
-        StringBuilder values = new StringBuilder();
+        Map<String, String> update = new HashMap<>();
         for (String coin : coins) {
             final CoinInfo state = results.get(coin);
-            if (!symbols.toString().isEmpty()) {
-                symbols.append("\n");
-                values.append("\n");
-            }
-            symbols.append(state.getSymbol().toUpperCase());
-
-            values.append("$");
-            values.append(state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP));
+            final String symbol = state.getSymbol().toUpperCase();
+            final String value = "$" + state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            update.put(symbol, value);
         }
 
-        final RemoteViews remoteViews = widgetRemoteViewsService.createInstance(context.getPackageName(), R.layout.main_widget);
-        remoteViews.setTextViewText(R.id.text_symbol, symbols);
-        remoteViews.setTextViewText(R.id.text_value, values);
+        final RemoteViews remoteViews = widgetRemoteViewsService.createRemoteViews();
+        widgetRemoteViewsService.setContent(remoteViews, update);
 
         return remoteViews;
     }

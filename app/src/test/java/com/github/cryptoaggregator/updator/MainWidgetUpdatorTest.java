@@ -4,8 +4,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.listener.CoinInfo;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.anyMap;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +51,7 @@ public class MainWidgetUpdatorTest {
         coinInfo1 = generateCoinInfo(COIN_1);
         coinInfo2 = generateCoinInfo(COIN_2);
 
-        when(widgetRemoteViewsService.createInstance(anyString(), anyInt())).thenReturn(remoteViews);
+        when(widgetRemoteViewsService.createRemoteViews()).thenReturn(remoteViews);
     }
 
     private CoinInfo generateCoinInfo(String coinId) {
@@ -83,7 +81,7 @@ public class MainWidgetUpdatorTest {
         updator.update(COIN_1, coinInfo1);
         updator.update(COIN_2, coinInfo2);
 
-        verify(remoteViews, times(2)).setTextViewText(anyInt(), any(CharSequence.class));
+        verify(widgetRemoteViewsService).setContent(any(RemoteViews.class), anyMap());
         verify(widgetManager).updateAppWidget(WIDGET_ID, remoteViews);
     }
 }

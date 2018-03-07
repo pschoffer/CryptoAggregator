@@ -8,9 +8,12 @@ import android.widget.RemoteViews;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.service.coin.CoinMarketService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
+import com.github.cryptoaggregator.util.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,25 +27,23 @@ public class MainWidget extends AppWidgetProvider {
         List<String> coins = new ArrayList<>();
         coins.add("bitcoin");
         coins.add("ethereum");
-        final WidgetRemoteViewsService widgetRemoteViewsService = new WidgetRemoteViewsService();
+        final WidgetRemoteViewsService widgetRemoteViewsService = new WidgetRemoteViewsService(context.getPackageName());
         final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, widgetRemoteViewsService, coins);
 
         coinMarketService.triggerUpdate(coins, mainWidgetUpdator);
 
-        StringBuilder symbols = new StringBuilder();
-        StringBuilder values = new StringBuilder();
+        setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsService);
+    }
+
+    private static void setLoadingContent(AppWidgetManager appWidgetManager, int appWidgetId, List<String> coins, WidgetRemoteViewsService widgetRemoteViewsService) {
+        Logger.info("Setting loading content");
+        Map<String, String> loadingUpdate = new HashMap<>();
         for (String coin : coins) {
-            if (!symbols.toString().isEmpty()) {
-                symbols.append("\n");
-                values.append("\n");
-            }
-            symbols.append(coin);
-            values.append("loading...");
+            loadingUpdate.put(coin, "loading...");
         }
 
-        final RemoteViews loadingViews = widgetRemoteViewsService.createInstance(context.getPackageName(), R.layout.main_widget);
-        loadingViews.setTextViewText(R.id.text_symbol, symbols.toString());
-        loadingViews.setTextViewText(R.id.text_value, values.toString());
+        final RemoteViews loadingViews = widgetRemoteViewsService.createRemoteViews();
+        widgetRemoteViewsService.setContent(loadingViews, loadingUpdate);
         appWidgetManager.updateAppWidget(appWidgetId, loadingViews);
     }
 
