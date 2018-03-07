@@ -10,12 +10,18 @@ import com.github.cryptoaggregator.util.Logger;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by pschoffer on 2018-02-21.
  */
 
 public class CoinMarketService implements CoinService {
     private final static String URL = "https://api.coinmarketcap.com/v1/ticker/";
+
+    @Inject
+    public CoinMarketService() {
+    }
 
     @Override
     public void triggerUpdate(List<String> coins, Updator updator) {
