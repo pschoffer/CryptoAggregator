@@ -11,6 +11,7 @@ import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -49,7 +50,7 @@ public class MainWidgetUpdator implements Updator {
         Map<String, String> update = new HashMap<>();
         for (String coin : coins) {
             final CoinInfo state = results.get(coin);
-            final String symbol = state.getSymbol().toUpperCase();
+            final String symbol = state.getSymbol().toUpperCase(Locale.getDefault());
             final String value = "$" + state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
             update.put(symbol, value);
         }

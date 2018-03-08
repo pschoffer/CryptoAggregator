@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:padding="3dp"
-        android:text="BTC\nETC"
         android:textColor="@color/colorText" />
 
     <TextView
@@ -22,8 +21,7 @@
         android:gravity="end"
         android:layout_centerVertical="true"
         android:padding="3dp"
-        android:layout_toRightOf="@id/text_symbol"
-        android:text="XXX\nXXX"
+        android:layout_toEndOf="@id/text_symbol"
         android:textColor="@color/colorText" />
 
 </RelativeLayout>

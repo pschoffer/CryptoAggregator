@@ -22,7 +22,7 @@
         android:gravity="end"
         android:layout_centerVertical="true"
         android:padding="3dp"
-        android:layout_toRightOf="@id/text_symbol"
+        android:layout_toEndOf="@id/text_symbol"
         android:text="XXX\nXXX"
         android:textColor="@color/colorText" />
 
