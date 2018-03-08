@@ -5,8 +5,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
 
+import com.github.cryptoaggregator.dependency.DaggerMainComponent;
+import com.github.cryptoaggregator.dependency.MainComponent;
+import com.github.cryptoaggregator.dependency.MainModule;
+import com.github.cryptoaggregator.dependency.MainModule_CoinServiceFactory;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.service.coin.CoinMarketService;
+import com.github.cryptoaggregator.service.coin.CoinService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
 
@@ -23,14 +28,15 @@ public class MainWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        final CoinMarketService coinMarketService = new CoinMarketService();
+
+        final CoinService coinService = DaggerMainComponent.builder().build().getCoinService();
         List<String> coins = new ArrayList<>();
         coins.add("bitcoin");
         coins.add("ethereum");
         final WidgetRemoteViewsService widgetRemoteViewsService = new WidgetRemoteViewsService(context.getPackageName());
         final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, widgetRemoteViewsService, coins);
 
-        coinMarketService.triggerUpdate(coins, mainWidgetUpdator);
+        coinService.triggerUpdate(coins, mainWidgetUpdator);
 
         setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsService);
     }
