@@ -6,7 +6,8 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.listener.CoinInfo;
-import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
+import com.github.cryptoaggregator.service.android.RemoteViewsService;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -20,17 +21,15 @@ import java.util.Map;
 
 public class MainWidgetUpdator implements Updator {
     private final Context context;
-    private final AppWidgetManager appWidgetManager;
     private final int appWidgetId;
-    private final WidgetRemoteViewsService widgetRemoteViewsService;
+    private final RemoteViewsService remoteViewsService;
     private final Map<String, CoinInfo> results;
     private final List<String> coins;
 
-    public MainWidgetUpdator(Context context, AppWidgetManager appWidgetManager, int appWidgetId, WidgetRemoteViewsService widgetRemoteViewsService, List<String> coins) {
+    public MainWidgetUpdator(Context context, int appWidgetId, List<String> coins, WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory) {
         this.context = context;
-        this.appWidgetManager = appWidgetManager;
         this.appWidgetId = appWidgetId;
-        this.widgetRemoteViewsService = widgetRemoteViewsService;
+        this.remoteViewsService = widgetRemoteViewsServiceFactory.create(context.getPackageName());
 
         this.coins = coins;
         this.results = new HashMap<>();
@@ -41,6 +40,7 @@ public class MainWidgetUpdator implements Updator {
         results.put(symbol, state);
         if (results.size() == coins.size()) {
             RemoteViews views = configureRemoteViews();
+            final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
     }
@@ -55,8 +55,8 @@ public class MainWidgetUpdator implements Updator {
             update.put(symbol, value);
         }
 
-        final RemoteViews remoteViews = widgetRemoteViewsService.createRemoteViews();
-        widgetRemoteViewsService.setContent(remoteViews, update);
+        final RemoteViews remoteViews = remoteViewsService.createRemoteViews();
+        remoteViewsService.setContent(remoteViews, update);
 
         return remoteViews;
     }

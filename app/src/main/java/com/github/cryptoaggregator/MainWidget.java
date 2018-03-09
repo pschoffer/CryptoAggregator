@@ -7,10 +7,8 @@ import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
-import com.github.cryptoaggregator.dependency.MainModule;
-import com.github.cryptoaggregator.dependency.MainModule_CoinServiceFactory;
-import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
-import com.github.cryptoaggregator.service.coin.CoinMarketService;
+import com.github.cryptoaggregator.service.android.RemoteViewsService;
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
@@ -26,30 +24,39 @@ import java.util.Map;
  */
 public class MainWidget extends AppWidgetProvider {
 
+    private static CoinService coinService;
+    private static WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory;
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        final CoinService coinService = DaggerMainComponent.builder().build().getCoinService();
+        initInjection();
+
         List<String> coins = new ArrayList<>();
         coins.add("bitcoin");
         coins.add("ethereum");
-        final WidgetRemoteViewsService widgetRemoteViewsService = new WidgetRemoteViewsService(context.getPackageName());
-        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetManager, appWidgetId, widgetRemoteViewsService, coins);
+        final MainWidgetUpdator mainWidgetUpdator = new MainWidgetUpdator(context, appWidgetId, coins, widgetRemoteViewsServiceFactory);
 
         coinService.triggerUpdate(coins, mainWidgetUpdator);
 
-        setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsService);
+        setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsServiceFactory.create(context.getPackageName()));
     }
 
-    private static void setLoadingContent(AppWidgetManager appWidgetManager, int appWidgetId, List<String> coins, WidgetRemoteViewsService widgetRemoteViewsService) {
+    private static void initInjection() {
+        final MainComponent component = DaggerMainComponent.builder().build();
+        coinService = component.getCoinService();
+        widgetRemoteViewsServiceFactory = component.getWidgetRemoteViewsServiceFactory();
+    }
+
+    private static void setLoadingContent(AppWidgetManager appWidgetManager, int appWidgetId, List<String> coins, RemoteViewsService remoteViewsService) {
         Logger.info("Setting loading content");
         Map<String, String> loadingUpdate = new HashMap<>();
         for (String coin : coins) {
             loadingUpdate.put(coin, "loading...");
         }
 
-        final RemoteViews loadingViews = widgetRemoteViewsService.createRemoteViews();
-        widgetRemoteViewsService.setContent(loadingViews, loadingUpdate);
+        final RemoteViews loadingViews = remoteViewsService.createRemoteViews();
+        remoteViewsService.setContent(loadingViews, loadingUpdate);
         appWidgetManager.updateAppWidget(appWidgetId, loadingViews);
     }
 

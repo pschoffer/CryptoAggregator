@@ -13,8 +13,8 @@ import java.util.Map;
 public class WidgetRemoteViewsService implements RemoteViewsService {
     private final String packageName;
 
-    public WidgetRemoteViewsService(String packageName1) {
-        packageName = packageName1;
+    public WidgetRemoteViewsService(String packageName) {
+        this.packageName = packageName;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.github.cryptoaggregator.dependency;
 
+import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
 
 import javax.inject.Singleton;
@@ -14,4 +15,6 @@ import dagger.Component;
 @Component(modules = MainModule.class)
 public interface MainComponent {
     CoinService getCoinService();
+
+    WidgetRemoteViewsServiceFactory getWidgetRemoteViewsServiceFactory();
 }
