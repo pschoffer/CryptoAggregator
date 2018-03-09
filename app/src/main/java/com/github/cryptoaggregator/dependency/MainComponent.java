@@ -2,6 +2,8 @@ package com.github.cryptoaggregator.dependency;
 
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
+import com.github.cryptoaggregator.updator.MainWidgetUpdator;
+import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 
 import javax.inject.Singleton;
 
@@ -17,4 +19,6 @@ public interface MainComponent {
     CoinService getCoinService();
 
     WidgetRemoteViewsServiceFactory getWidgetRemoteViewsServiceFactory();
+
+    MainWidgetUpdatorFactory getMainWidgetUpdatorFactory();
 }
