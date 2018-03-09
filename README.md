@@ -8,9 +8,8 @@ received updates the price of given currencies. The price is also fetched
 in a fixed interval.
 
 ## TODO
-* DI framework
-* Refresh on touch
 * Create a setting screen and a way to move to it
+* Refresh on touch
 * Change what tokens to show (configuration).
 * Specify how much you hold of each of chosen ones to see how much in USD you have
 * Provide a sum of USD amounts
