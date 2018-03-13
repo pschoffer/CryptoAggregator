@@ -12,4 +12,6 @@ public interface RemoteViewsService {
     RemoteViews createRemoteViews();
 
     void setContent(RemoteViews target, Map<String, String> values);
+
+    void setIntents(RemoteViews remoteViews);
 }

@@ -1,5 +1,7 @@
 package com.github.cryptoaggregator.service.android;
 
+import android.content.Context;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -14,8 +16,8 @@ public class WidgetRemoteViewsServiceFactory {
 
     }
 
-    public RemoteViewsService create(String packageName) {
-        return new WidgetRemoteViewsService(packageName);
+    public RemoteViewsService create(Context context) {
+        return new WidgetRemoteViewsService(context);
     }
 
 }

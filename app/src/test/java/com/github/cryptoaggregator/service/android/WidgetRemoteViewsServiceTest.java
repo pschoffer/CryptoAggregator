@@ -1,5 +1,6 @@
 package com.github.cryptoaggregator.service.android;
 
+import android.content.Context;
 import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.R;
@@ -18,7 +19,6 @@ import static org.mockito.Mockito.verify;
  * Created by pschoffer on 2018-03-06.
  */
 public class WidgetRemoteViewsServiceTest {
-    final private static String packageName = "packageName";
     private static final String KEY1 = "key1";
     private static final String KEY2 = "key2";
     private static final String VALUE1 = "value1";
@@ -28,12 +28,14 @@ public class WidgetRemoteViewsServiceTest {
 
     @Mock
     RemoteViews remoteViews;
+    @Mock
+    Context context;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        service = new WidgetRemoteViewsService(packageName);
+        service = new WidgetRemoteViewsService(context);
     }
 
     @Test

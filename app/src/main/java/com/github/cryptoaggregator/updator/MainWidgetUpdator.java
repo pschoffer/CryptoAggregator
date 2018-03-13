@@ -1,10 +1,12 @@
 package com.github.cryptoaggregator.updator;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
+import com.github.cryptoaggregator.R;
 import com.github.cryptoaggregator.listener.CoinInfo;
 import com.github.cryptoaggregator.service.android.RemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
@@ -29,7 +31,7 @@ public class MainWidgetUpdator implements Updator {
     public MainWidgetUpdator(Context context, int appWidgetId, List<String> coins, WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory) {
         this.context = context;
         this.appWidgetId = appWidgetId;
-        this.remoteViewsService = widgetRemoteViewsServiceFactory.create(context.getPackageName());
+        this.remoteViewsService = widgetRemoteViewsServiceFactory.create(context);
 
         this.coins = coins;
         this.results = new HashMap<>();
@@ -57,6 +59,8 @@ public class MainWidgetUpdator implements Updator {
 
         final RemoteViews remoteViews = remoteViewsService.createRemoteViews();
         remoteViewsService.setContent(remoteViews, update);
+        remoteViewsService.setIntents(remoteViews);
+
 
         return remoteViews;
     }

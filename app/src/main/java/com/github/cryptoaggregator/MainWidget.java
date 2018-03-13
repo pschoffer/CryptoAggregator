@@ -42,7 +42,7 @@ public class MainWidget extends AppWidgetProvider {
 
         coinService.triggerUpdate(coins, mainWidgetUpdator);
 
-        setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsServiceFactory.create(context.getPackageName()));
+        setLoadingContent(appWidgetManager, appWidgetId, coins, widgetRemoteViewsServiceFactory.create(context));
     }
 
     private static void initInjection() {

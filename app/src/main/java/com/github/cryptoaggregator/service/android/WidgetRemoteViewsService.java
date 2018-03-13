@@ -1,5 +1,8 @@
 package com.github.cryptoaggregator.service.android;
 
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.R;
@@ -11,15 +14,15 @@ import java.util.Map;
  */
 
 public class WidgetRemoteViewsService implements RemoteViewsService {
-    private final String packageName;
+    private final Context context;
 
-    public WidgetRemoteViewsService(String packageName) {
-        this.packageName = packageName;
+    public WidgetRemoteViewsService(Context context) {
+        this.context = context;
     }
 
     @Override
     public RemoteViews createRemoteViews() {
-        return new RemoteViews(packageName, R.layout.main_widget);
+        return new RemoteViews(context.getPackageName(), R.layout.main_widget);
     }
 
     @Override
@@ -36,5 +39,14 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
         }
         target.setTextViewText(R.id.text_symbol, keys.toString());
         target.setTextViewText(R.id.text_value, values.toString());
+    }
+
+    @Override
+    public void setIntents(RemoteViews target) {
+        Intent configIntent = new Intent();
+
+//        PendingIntent configPendingIntent = PendingIntent.getActivity();
+//        target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);
+
     }
 }

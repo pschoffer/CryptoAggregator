@@ -63,7 +63,7 @@ public class MainWidgetUpdatorTest {
         coinInfo2 = generateCoinInfo(COIN_2);
 
         when(AppWidgetManager.getInstance(any(Context.class))).thenReturn(widgetManager);
-        when(widgetRemoteViewsServiceFactory.create(anyString())).thenReturn(widgetRemoteViewsService);
+        when(widgetRemoteViewsServiceFactory.create(any(Context.class))).thenReturn(widgetRemoteViewsService);
         when(widgetRemoteViewsService.createRemoteViews()).thenReturn(remoteViews);
     }
 
