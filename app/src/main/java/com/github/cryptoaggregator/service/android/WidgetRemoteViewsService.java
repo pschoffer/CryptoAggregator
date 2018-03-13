@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.R;
+import com.github.cryptoaggregator.util.Logger;
 
 import java.util.Map;
 
@@ -27,6 +29,7 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
 
     @Override
     public void setContent(RemoteViews target, Map<String, String> content) {
+        Logger.info("Setting up CONTENT for the widget.");
         StringBuilder keys = new StringBuilder();
         StringBuilder values = new StringBuilder();
         for (Map.Entry<String, String> keyValue : content.entrySet()) {
@@ -43,10 +46,10 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
 
     @Override
     public void setIntents(RemoteViews target) {
-        Intent configIntent = new Intent();
+        Logger.info("Setting up INTENTS for the widget.");
+        Intent configIntent = new Intent(context, ConfigurationActivity.class);
 
-//        PendingIntent configPendingIntent = PendingIntent.getActivity();
-//        target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);
-
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);
     }
 }

@@ -12,7 +12,7 @@ import android.widget.EditText;
 /**
  * The configuration screen for the {@link MainWidget MainWidget} AppWidget.
  */
-public class MainWidgetConfigureActivity extends Activity {
+public class ConfigurationActivity extends Activity {
 
     private static final String PREFS_NAME = "com.github.cryptoaggregator.MainWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
@@ -20,7 +20,7 @@ public class MainWidgetConfigureActivity extends Activity {
     EditText mAppWidgetText;
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            final Context context = MainWidgetConfigureActivity.this;
+            final Context context = ConfigurationActivity.this;
 
             // When the button is clicked, store the string locally
             String widgetText = mAppWidgetText.getText().toString();
@@ -38,7 +38,7 @@ public class MainWidgetConfigureActivity extends Activity {
         }
     };
 
-    public MainWidgetConfigureActivity() {
+    public ConfigurationActivity() {
         super();
     }
 
@@ -93,7 +93,7 @@ public class MainWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(MainWidgetConfigureActivity.this, mAppWidgetId));
+        mAppWidgetText.setText(loadTitlePref(ConfigurationActivity.this, mAppWidgetId));
     }
 }
 

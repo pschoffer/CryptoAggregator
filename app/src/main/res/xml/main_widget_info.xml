@@ -8,4 +8,3 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen"></appwidget-provider>
-    <!--android:configure="com.github.cryptoaggregator.MainWidgetConfigureActivity"-->

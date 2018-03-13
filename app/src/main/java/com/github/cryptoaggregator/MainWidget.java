@@ -10,7 +10,6 @@ import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.service.android.RemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
-import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
@@ -22,7 +21,7 @@ import java.util.Map;
 
 /**
  * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link MainWidgetConfigureActivity MainWidgetConfigureActivity}
+ * App Widget Configuration implemented in {@link ConfigurationActivity ConfigurationActivity}
  */
 public class MainWidget extends AppWidgetProvider {
 
@@ -76,7 +75,7 @@ public class MainWidget extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            MainWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            ConfigurationActivity.deleteTitlePref(context, appWidgetId);
         }
     }
 
