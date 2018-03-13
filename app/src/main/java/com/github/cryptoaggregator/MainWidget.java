@@ -75,9 +75,9 @@ public class MainWidget extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
-        for (int appWidgetId : appWidgetIds) {
-            ConfigurationActivity.deleteTitlePref(context, appWidgetId);
-        }
+//        for (int appWidgetId : appWidgetIds) {
+//            ConfigurationActivity.deleteTitlePref(context, appWidgetId);
+//        }
     }
 
     @Override
