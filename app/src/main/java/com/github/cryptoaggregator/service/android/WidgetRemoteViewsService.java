@@ -48,6 +48,7 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
     public void setIntents(RemoteViews target) {
         Logger.info("Setting up INTENTS for the widget.");
         Intent configIntent = new Intent(context, ConfigurationActivity.class);
+        configIntent.setAction("Config");
 
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);

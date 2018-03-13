@@ -60,6 +60,7 @@ public class MainWidget extends AppWidgetProvider {
 
         final RemoteViews loadingViews = remoteViewsService.createRemoteViews();
         remoteViewsService.setContent(loadingViews, loadingUpdate);
+        remoteViewsService.setIntents(loadingViews);
         appWidgetManager.updateAppWidget(appWidgetId, loadingViews);
     }
 
