@@ -5,12 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.R;
+import com.github.cryptoaggregator.util.Logger;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
@@ -30,7 +31,7 @@ import static org.mockito.Mockito.when;
  * Created by pschoffer on 2018-03-06.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(PendingIntent.class)
+@PrepareForTest({PendingIntent.class, Logger.class})
 public class WidgetRemoteViewsServiceTest {
     private static final String KEY1 = "key1";
     private static final String KEY2 = "key2";
@@ -45,15 +46,20 @@ public class WidgetRemoteViewsServiceTest {
     Context context;
     @Mock
     PendingIntent pendingIntent;
+    @Mock
+    IntentFactory intentFactory;
+    @Mock
+    private Intent intent;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         PowerMockito.mockStatic(PendingIntent.class);
+        PowerMockito.mockStatic(Logger.class);
 
         when(PendingIntent.getActivity(any(Context.class), anyInt(), any(Intent.class), anyInt())).thenReturn(pendingIntent);
-
-        service = new WidgetRemoteViewsService(context);
+        when(intentFactory.createIntent(any(Context.class), any(Class.class))).thenReturn(intent);
+        service = new WidgetRemoteViewsService(context, intentFactory);
     }
 
     @Test

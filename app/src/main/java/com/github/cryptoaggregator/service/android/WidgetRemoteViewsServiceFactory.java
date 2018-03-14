@@ -11,13 +11,16 @@ import javax.inject.Singleton;
 
 @Singleton
 public class WidgetRemoteViewsServiceFactory {
-    @Inject
-    public WidgetRemoteViewsServiceFactory() {
 
+    private final IntentFactory intentFactory;
+    @Inject
+    public WidgetRemoteViewsServiceFactory(IntentFactory intentFactory) {
+
+        this.intentFactory = intentFactory;
     }
 
     public RemoteViewsService create(Context context) {
-        return new WidgetRemoteViewsService(context);
+        return new WidgetRemoteViewsService(context, intentFactory);
     }
 
 }

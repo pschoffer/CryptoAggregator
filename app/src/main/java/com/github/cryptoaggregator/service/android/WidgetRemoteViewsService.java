@@ -17,9 +17,11 @@ import java.util.Map;
 
 public class WidgetRemoteViewsService implements RemoteViewsService {
     private final Context context;
+    private final IntentFactory intentFactory;
 
-    public WidgetRemoteViewsService(Context context) {
+    public WidgetRemoteViewsService(Context context, IntentFactory intentFactory) {
         this.context = context;
+        this.intentFactory = intentFactory;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
     @Override
     public void setIntents(RemoteViews target) {
         Logger.info("Setting up INTENTS for the widget.");
-        Intent configIntent = new Intent(context, ConfigurationActivity.class);
+        Intent configIntent = intentFactory.createIntent(context, ConfigurationActivity.class);
         configIntent.setAction("Config");
 
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
