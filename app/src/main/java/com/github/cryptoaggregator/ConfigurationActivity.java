@@ -1,15 +1,20 @@
 package com.github.cryptoaggregator;
 
+import android.app.ActionBar;
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.github.cryptoaggregator.util.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The configuration screen for the {@link MainWidget MainWidget} AppWidget.
@@ -73,12 +78,30 @@ public class ConfigurationActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Logger.info("Creating Config activity.");
+        final List<String> avaiableCoins = new ArrayList<>();
+        avaiableCoins.add("bitcoin");
+        avaiableCoins.add("ethereum");
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
         // out of the widget placement if the user presses the back button.
 //        setResult(RESULT_CANCELED);
 
-        setContentView(R.layout.main_widget_configure);
+        setContentView(R.layout.configure);
+        final ViewGroup layout = (ViewGroup) findViewById(R.id.configureLayout);
+        for (String avaiableCoin : avaiableCoins) {
+            TableRow row = new TableRow(this);
+
+            CheckBox box = new CheckBox(this);
+            row.addView(box, TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            TextView label = new TextView(this);
+            label.setText(avaiableCoin);
+            row.addView(label, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            layout.addView(row);
+        }
+
+
 //        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
 //        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
