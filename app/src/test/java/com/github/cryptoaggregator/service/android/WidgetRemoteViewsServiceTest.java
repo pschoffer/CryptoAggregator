@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.R;
 import com.github.cryptoaggregator.util.Logger;
 
@@ -77,7 +76,7 @@ public class WidgetRemoteViewsServiceTest {
 
     @Test
     public void testSetIntent() throws Exception {
-        service.setIntents(remoteViews);
+        service.setIntents(remoteViews, appWidgetId);
 
         verify(remoteViews).setOnClickPendingIntent(eq(R.id.text_symbol), any(PendingIntent.class));
     }

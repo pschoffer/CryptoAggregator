@@ -2,4 +2,6 @@
     <string name="app_name">CryptoAggregator</string>
     <string name="preview_symbol">BTC\nETC</string>
     <string name="preview_price">XXX\nXXX</string>
+
+    <string name="save">SAVE</string>
 </resources>

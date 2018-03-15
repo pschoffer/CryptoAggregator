@@ -2,9 +2,12 @@ package com.github.cryptoaggregator;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -23,7 +26,7 @@ public class ConfigurationActivity extends Activity {
 //
 //    private static final String PREFS_NAME = "com.github.cryptoaggregator.MainWidget";
 //    private static final String PREF_PREFIX_KEY = "appwidget_";
-//    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 //    EditText mAppWidgetText;
 //    View.OnClickListener mOnClickListener = new View.OnClickListener() {
 //        public void onClick(View v) {
@@ -78,6 +81,23 @@ public class ConfigurationActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         Logger.info("Creating Config activity.");
+        // Find the widget id from the intent.
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            appWidgetId = extras.getInt(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+
+        // If this activity was started with an intent without an app widget ID, finish with an error.
+        if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+            return;
+        }
+        Logger.info("Config activity for id - " + appWidgetId);
+
+
+
         final List<String> avaiableCoins = new ArrayList<>();
         avaiableCoins.add("bitcoin");
         avaiableCoins.add("ethereum");
@@ -87,7 +107,38 @@ public class ConfigurationActivity extends Activity {
 //        setResult(RESULT_CANCELED);
 
         setContentView(R.layout.configure);
-        final ViewGroup layout = (ViewGroup) findViewById(R.id.configureLayout);
+
+        generateCoinsLines(avaiableCoins);
+        generateButtons();
+
+
+
+//        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+//        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
+
+
+//        mAppWidgetText.setText(loadTitlePref(ConfigurationActivity.this, mAppWidgetId));
+    }
+
+    private void generateButtons() {
+        final ViewGroup layout = findViewById(R.id.configureLayout);
+        final TableRow row = new TableRow(this);
+
+        Button save = new Button(this);
+        save.setText(R.string.save);
+//        View.OnClickListener saveListener;
+//        save.setOnClickListener(saveListener);
+
+
+        final TableRow.LayoutParams saveParams = new TableRow.LayoutParams();
+        saveParams.span = 2;
+        saveParams.weight = 1;
+        row.addView(save, saveParams);
+        layout.addView(row);
+    }
+
+    private void generateCoinsLines(List<String> avaiableCoins) {
+        final ViewGroup layout = findViewById(R.id.configureLayout);
         for (String avaiableCoin : avaiableCoins) {
             TableRow row = new TableRow(this);
 
@@ -100,26 +151,6 @@ public class ConfigurationActivity extends Activity {
 
             layout.addView(row);
         }
-
-
-//        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
-//        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
-
-        // Find the widget id from the intent.
-//        Intent intent = getIntent();
-//        Bundle extras = intent.getExtras();
-//        if (extras != null) {
-//            mAppWidgetId = extras.getInt(
-//                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-//        }
-
-        // If this activity was started with an intent without an app widget ID, finish with an error.
-//        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-//            finish();
-//            return;
-//        }
-
-//        mAppWidgetText.setText(loadTitlePref(ConfigurationActivity.this, mAppWidgetId));
     }
 }
 

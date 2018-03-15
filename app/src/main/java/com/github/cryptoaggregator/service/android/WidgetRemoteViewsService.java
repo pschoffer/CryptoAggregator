@@ -1,6 +1,7 @@
 package com.github.cryptoaggregator.service.android;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -47,10 +48,11 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
     }
 
     @Override
-    public void setIntents(RemoteViews target) {
+    public void setIntents(RemoteViews target, int appWidgetId) {
         Logger.info("Setting up INTENTS for the widget.");
         Intent configIntent = intentFactory.createIntent(context, ConfigurationActivity.class);
         configIntent.setAction("Config");
+        configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);
