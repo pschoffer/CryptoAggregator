@@ -14,10 +14,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.github.cryptoaggregator.dependency.DaggerMainComponent;
+import com.github.cryptoaggregator.dependency.MainComponent;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * The configuration screen for the {@link MainWidget MainWidget} AppWidget.
@@ -27,6 +32,13 @@ public class ConfigurationActivity extends Activity {
 //    private static final String PREFS_NAME = "com.github.cryptoaggregator.MainWidget";
 //    private static final String PREF_PREFIX_KEY = "appwidget_";
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    @Inject
+    public WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+
+    public ConfigurationActivity() {
+        final MainComponent component = DaggerMainComponent.builder().build();
+        component.inject(this);
+    }
 //    EditText mAppWidgetText;
 //    View.OnClickListener mOnClickListener = new View.OnClickListener() {
 //        public void onClick(View v) {
