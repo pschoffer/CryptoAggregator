@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.listener.CoinInfo;
+import com.github.cryptoaggregator.listener.http.CoinInfo;
 import com.github.cryptoaggregator.service.android.RemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 

@@ -4,7 +4,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.cryptoaggregator.listener.CoinMarketListener;
+import com.github.cryptoaggregator.listener.http.CoinMarketListener;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
 

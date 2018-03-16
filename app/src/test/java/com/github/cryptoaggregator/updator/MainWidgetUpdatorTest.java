@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.github.cryptoaggregator.listener.CoinInfo;
+import com.github.cryptoaggregator.listener.http.CoinInfo;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 
@@ -24,7 +24,6 @@ import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

@@ -2,6 +2,8 @@ package com.github.cryptoaggregator.listener;
 
 import android.util.Log;
 
+import com.github.cryptoaggregator.listener.http.CoinInfo;
+import com.github.cryptoaggregator.listener.http.CoinMarketListener;
 import com.github.cryptoaggregator.updator.Updator;
 
 import junit.framework.Assert;

@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.listener;
+package com.github.cryptoaggregator.listener.http;
 
 import com.android.volley.Response;
 import com.github.cryptoaggregator.updator.Updator;

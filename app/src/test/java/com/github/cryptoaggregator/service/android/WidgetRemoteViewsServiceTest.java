@@ -36,6 +36,7 @@ public class WidgetRemoteViewsServiceTest {
     private static final String KEY2 = "key2";
     private static final String VALUE1 = "value1";
     private static final String VALUE2 = "value2";
+    public static final int APP_WIDGET_ID = 1;
 
     private RemoteViewsService service;
 
@@ -76,7 +77,7 @@ public class WidgetRemoteViewsServiceTest {
 
     @Test
     public void testSetIntent() throws Exception {
-        service.setIntents(remoteViews, appWidgetId);
+        service.setIntents(remoteViews, APP_WIDGET_ID);
 
         verify(remoteViews).setOnClickPendingIntent(eq(R.id.text_symbol), any(PendingIntent.class));
     }

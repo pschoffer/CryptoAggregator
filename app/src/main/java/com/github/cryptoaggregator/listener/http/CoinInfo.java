@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.listener;
+package com.github.cryptoaggregator.listener.http;
 
 import com.google.gson.annotations.SerializedName;
 
