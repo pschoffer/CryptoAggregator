@@ -4,5 +4,8 @@ package com.github.cryptoaggregator.service.pref;
  * Created by pschoffer on 2018-03-16.
  */
 
-class WidgetPreferenceService {
+public class WidgetPreferenceService {
+    public void persistPreferences(int appWidgetId, WidgetPreferences preferences) {
+
+    }
 }

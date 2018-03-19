@@ -29,7 +29,7 @@ public class MainWidget extends AppWidgetProvider {
     private static WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory;
     private static MainWidgetUpdatorFactory mainWidgetUpdatorFactory;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    static public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         initInjection();
