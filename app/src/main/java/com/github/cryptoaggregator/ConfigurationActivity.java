@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
+import com.github.cryptoaggregator.listener.button.SaveConfigListener;
+import com.github.cryptoaggregator.listener.button.SaveConfigListenerFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.util.Logger;
 
@@ -34,6 +36,8 @@ public class ConfigurationActivity extends Activity {
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     @Inject
     public WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+    @Inject
+    public SaveConfigListenerFactory saveConfigListenerFactory;
 
     public ConfigurationActivity() {
         final MainComponent component = DaggerMainComponent.builder().build();
@@ -138,9 +142,9 @@ public class ConfigurationActivity extends Activity {
 
         Button save = new Button(this);
         save.setText(R.string.save);
-//        View.OnClickListener saveListener;
-//        save.setOnClickListener(saveListener);
 
+        final SaveConfigListener saveConfigListener = saveConfigListenerFactory.create(this, appWidgetId);
+        save.setOnClickListener(saveConfigListener);
 
         final TableRow.LayoutParams saveParams = new TableRow.LayoutParams();
         saveParams.span = 2;

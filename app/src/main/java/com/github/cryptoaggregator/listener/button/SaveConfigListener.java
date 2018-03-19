@@ -3,20 +3,24 @@ package com.github.cryptoaggregator.listener.button;
 import android.content.Context;
 import android.view.View;
 
+import com.github.cryptoaggregator.util.Logger;
+
 /**
  * Created by pschoffer on 2018-03-15.
  */
 
 public class SaveConfigListener implements View.OnClickListener {
     private final Context context;
+    private final int appWidgetId;
 
-    public SaveConfigListener(Context context) {
+    SaveConfigListener(Context context, int appWidgetId) {
         this.context = context;
+        this.appWidgetId = appWidgetId;
     }
 
     @Override
     public void onClick(View view) {
-
+        Logger.info("Persisting configuration for widget " + appWidgetId);
 //        // When the button is clicked, store the string locally
 //        String widgetText = mAppWidgetText.getText().toString();
 //        saveTitlePref(context, mAppWidgetId, widgetText);
