@@ -1,16 +1,12 @@
 package com.github.cryptoaggregator;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -23,7 +19,6 @@ import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -113,16 +108,9 @@ public class ConfigurationActivity extends Activity {
             return;
         }
 
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(this);
-        final WidgetPreferences widgetPreferences = widgetPreferenceService.loadPreferences(appWidgetId);
-
-        final List<String> avaiableCoins = new ArrayList<>();
-        avaiableCoins.add("bitcoin");
-        avaiableCoins.add("ethereum");
-
         setContentView(R.layout.configure);
 
-        generateCoinsLines(avaiableCoins);
+        generateCoinsLines();
         generateButtons();
     }
 
@@ -143,16 +131,21 @@ public class ConfigurationActivity extends Activity {
         layout.addView(row);
     }
 
-    private void generateCoinsLines(List<String> avaiableCoins) {
+    private void generateCoinsLines() {
+        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(this);
+        final WidgetPreferences widgetPreferences = widgetPreferenceService.loadPreferences(appWidgetId);
+
+        final List<String> availableCoins = widgetPreferences.getCurrencies();
         final ViewGroup layout = findViewById(R.id.configureLayout);
-        for (String avaiableCoin : avaiableCoins) {
+        for (String availableCoin : availableCoins) {
             TableRow row = new TableRow(this);
 
             CheckBox box = new CheckBox(this);
+            box.setChecked(widgetPreferences.isEnabled(availableCoin));
             row.addView(box, TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             TextView label = new TextView(this);
-            label.setText(avaiableCoin);
+            label.setText(availableCoin);
             row.addView(label, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             layout.addView(row);

@@ -29,18 +29,15 @@ public class WidgetPreferenceService {
         Logger.info("Persisting preferences for widget " + appWidgetId);
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
 
-        final Map<String, Boolean> enabledCurrencies = preferences.getEnabledCurrencies();
-
         final StringBuilder coins = new StringBuilder();
-        for (Map.Entry<String, Boolean> enableEntry : enabledCurrencies.entrySet()) {
-            final String key = enableEntry.getKey();
-
-            prefs.putBoolean(getCoinEnabledKey(appWidgetId, key), enableEntry.getValue());
+        for (String coin : preferences.getCurrencies()) {
+            final boolean enabled = preferences.isEnabled(coin);
+            prefs.putBoolean(getCoinEnabledKey(appWidgetId, coin), enabled);
 
             if (!coins.toString().isEmpty()) {
                 coins.append(COINS_SEPARATOR);
             }
-            coins.append(key);
+            coins.append(coin);
         }
         prefs.putString(getCoinOrderKey(appWidgetId), coins.toString());
         prefs.apply();
