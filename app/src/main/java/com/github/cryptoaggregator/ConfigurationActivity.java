@@ -18,7 +18,9 @@ import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.listener.button.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.SaveConfigListenerFactory;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
 import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.ArrayList;
@@ -110,9 +112,9 @@ public class ConfigurationActivity extends Activity {
             finish();
             return;
         }
-        Logger.info("Config activity for id - " + appWidgetId);
 
-
+        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(this);
+        final WidgetPreferences widgetPreferences = widgetPreferenceService.loadPreferences(appWidgetId);
 
         final List<String> avaiableCoins = new ArrayList<>();
         avaiableCoins.add("bitcoin");

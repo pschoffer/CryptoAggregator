@@ -1,6 +1,6 @@
 package com.github.cryptoaggregator.service.pref;
 
-import com.github.cryptoaggregator.service.android.WidgetRemoteViewsService;
+import android.content.Context;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,7 +14,7 @@ public class WidgetPreferenceServiceFactory {
     @Inject
     public WidgetPreferenceServiceFactory() {}
 
-    public WidgetPreferenceService create() {
-        return new WidgetPreferenceService();
+    public WidgetPreferenceService create(Context context) {
+        return new WidgetPreferenceService(context);
     }
 }

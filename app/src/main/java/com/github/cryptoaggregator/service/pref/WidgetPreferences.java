@@ -1,6 +1,6 @@
 package com.github.cryptoaggregator.service.pref;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -8,13 +8,17 @@ import java.util.Map;
  */
 
 public class WidgetPreferences {
-    private final Map<String, Boolean> enabledCurrencis;
+    private final Map<String, Boolean> enabledCurrencies;
 
     public WidgetPreferences() {
-        this.enabledCurrencis = new HashMap<>();
+        this.enabledCurrencies = new LinkedHashMap<>();
     }
 
     public void setEnabled(String key, Boolean value) {
-        enabledCurrencis.put(key, value);
+        enabledCurrencies.put(key, value);
+    }
+
+    public Map<String, Boolean> getEnabledCurrencies() {
+        return enabledCurrencies;
     }
 }

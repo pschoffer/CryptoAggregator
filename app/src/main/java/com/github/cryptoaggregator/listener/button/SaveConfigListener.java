@@ -50,7 +50,7 @@ public class SaveConfigListener implements View.OnClickListener {
             }
         }
 
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create();
+        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(configActivity);
         widgetPreferenceService.persistPreferences(appWidgetId, preferences);
 
         // It is the responsibility of the configuration activity to update the app widget
