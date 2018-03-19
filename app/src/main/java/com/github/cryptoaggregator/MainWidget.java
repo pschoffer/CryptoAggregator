@@ -10,6 +10,8 @@ import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.service.android.RemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
@@ -28,6 +30,7 @@ public class MainWidget extends AppWidgetProvider {
     private static CoinService coinService;
     private static WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory;
     private static MainWidgetUpdatorFactory mainWidgetUpdatorFactory;
+    private static WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
 
     static public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -49,6 +52,7 @@ public class MainWidget extends AppWidgetProvider {
         coinService = component.getCoinService();
         widgetRemoteViewsServiceFactory = component.getWidgetRemoteViewsServiceFactory();
         mainWidgetUpdatorFactory = component.getMainWidgetUpdatorFactory();
+        widgetPreferenceServiceFactory = component.getWidgetPreferenceServiceFactory();
     }
 
     private static void setLoadingContent(AppWidgetManager appWidgetManager, int appWidgetId, List<String> coins, RemoteViewsService remoteViewsService) {
@@ -74,10 +78,11 @@ public class MainWidget extends AppWidgetProvider {
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
+        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(context);
         // When the user deletes the widget, delete the preference associated with it.
-//        for (int appWidgetId : appWidgetIds) {
-//            ConfigurationActivity.deleteTitlePref(context, appWidgetId);
-//        }
+        for (int appWidgetId : appWidgetIds) {
+            widgetPreferenceService.clearPreferences(appWidgetId);
+        }
     }
 
     @Override

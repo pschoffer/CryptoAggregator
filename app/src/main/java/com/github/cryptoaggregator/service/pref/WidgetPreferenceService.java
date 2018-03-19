@@ -60,6 +60,21 @@ public class WidgetPreferenceService {
         return widgetPreferences;
     }
 
+    public void clearPreferences(int appWidgetId) {
+        Logger.info("Clearing preferences for widget " + appWidgetId);
+
+        final SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        final String coins = prefs.getString(getCoinOrderKey(appWidgetId), "");
+
+        final SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.remove(getCoinOrderKey(appWidgetId));
+
+        for (String coin : coins.split("\\|")) {
+            prefsEditor.remove(getCoinEnabledKey(appWidgetId, coin));
+        }
+        prefsEditor.apply();
+    }
+
     @NonNull
     private String getCoinOrderKey(int appWidgetId) {
         return COINS_ORDER + appWidgetId;

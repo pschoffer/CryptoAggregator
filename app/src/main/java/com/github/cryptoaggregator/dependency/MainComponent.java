@@ -3,6 +3,7 @@ package com.github.cryptoaggregator.dependency;
 import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.updator.MainWidgetUpdator;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 
@@ -22,6 +23,8 @@ public interface MainComponent {
     WidgetRemoteViewsServiceFactory getWidgetRemoteViewsServiceFactory();
 
     MainWidgetUpdatorFactory getMainWidgetUpdatorFactory();
+
+    WidgetPreferenceServiceFactory getWidgetPreferenceServiceFactory();
 
     void inject(ConfigurationActivity configurationActivity);
 }

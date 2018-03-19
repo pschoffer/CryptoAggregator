@@ -120,22 +120,10 @@ public class ConfigurationActivity extends Activity {
         avaiableCoins.add("bitcoin");
         avaiableCoins.add("ethereum");
 
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if the user presses the back button.
-//        setResult(RESULT_CANCELED);
-
         setContentView(R.layout.configure);
 
         generateCoinsLines(avaiableCoins);
         generateButtons();
-
-
-
-//        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
-//        findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
-
-
-//        mAppWidgetText.setText(loadTitlePref(ConfigurationActivity.this, mAppWidgetId));
     }
 
     private void generateButtons() {
