@@ -12,6 +12,7 @@ import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFacto
 import com.github.cryptoaggregator.service.coin.CoinService;
 import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
 import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
@@ -37,9 +38,12 @@ public class MainWidget extends AppWidgetProvider {
 
         initInjection();
 
-        List<String> coins = new ArrayList<>();
-        coins.add("bitcoin");
-        coins.add("ethereum");
+        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(context);
+        final WidgetPreferences preferences = widgetPreferenceService.loadPreferences(appWidgetId);
+        List<String> coins = preferences.getEnabledCurrencies();
+        if (coins.isEmpty()) {
+            coins = preferences.getCurrencies();
+        }
         final Updator mainWidgetUpdator = mainWidgetUpdatorFactory.create(context, appWidgetId, coins);
 
         coinService.triggerUpdate(coins, mainWidgetUpdator);

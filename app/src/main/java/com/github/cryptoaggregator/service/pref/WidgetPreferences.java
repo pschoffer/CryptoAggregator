@@ -29,6 +29,18 @@ public class WidgetPreferences {
         return currencies;
     }
 
+    public List<String> getEnabledCurrencies() {
+        final List<String> enabledCurrencies = new ArrayList<>();
+
+        for (String currency : getCurrencies()) {
+            if (isEnabled(currency)) {
+                enabledCurrencies.add(currency);
+            }
+        }
+
+        return enabledCurrencies;
+    }
+
     public boolean isEnabled(String coin) {
         final Boolean isEnabled = enabledCurrencies.get(coin);
         return isEnabled == null ? false : isEnabled;
