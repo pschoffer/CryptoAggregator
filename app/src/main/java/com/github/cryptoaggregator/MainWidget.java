@@ -17,7 +17,6 @@ import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 import com.github.cryptoaggregator.updator.Updator;
 import com.github.cryptoaggregator.util.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
