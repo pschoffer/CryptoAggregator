@@ -1,12 +1,10 @@
-package com.github.cryptoaggregator.service.pref;
+package com.github.cryptoaggregator.service.widget.pref;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.github.cryptoaggregator.util.Logger;
-
-import java.util.Map;
 
 /**
  * Created by pschoffer on 2018-03-16.

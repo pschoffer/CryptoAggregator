@@ -12,6 +12,7 @@ You can configure which currencies to show.
 
 ## TODO
 * Refresh on touch
+* Add More currencies
 * Specify how much you hold of each of chosen ones to see how much in USD you have
 * Provide a sum of USD amounts
 * Solve more than one widget config

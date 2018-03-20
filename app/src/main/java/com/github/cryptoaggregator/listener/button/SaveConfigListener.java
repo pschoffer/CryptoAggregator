@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.github.cryptoaggregator.MainWidget;
 import com.github.cryptoaggregator.R;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
-import com.github.cryptoaggregator.service.pref.WidgetPreferences;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
 /**

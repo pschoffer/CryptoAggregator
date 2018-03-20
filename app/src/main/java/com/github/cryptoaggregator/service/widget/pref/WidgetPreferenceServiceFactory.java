@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.service.pref;
+package com.github.cryptoaggregator.service.widget.pref;
 
 import android.content.Context;
 

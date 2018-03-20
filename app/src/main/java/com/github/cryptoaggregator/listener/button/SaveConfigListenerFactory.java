@@ -2,7 +2,7 @@ package com.github.cryptoaggregator.listener.button;
 
 import android.app.Activity;
 
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

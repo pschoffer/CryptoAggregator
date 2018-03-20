@@ -14,9 +14,9 @@ import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.listener.button.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.SaveConfigListenerFactory;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
-import com.github.cryptoaggregator.service.pref.WidgetPreferences;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.widget.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.List;
