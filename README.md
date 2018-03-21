@@ -7,11 +7,14 @@ After placing the widget on the home screen it will trigger update and when
 received updates the price of given currencies. The price is also fetched
 in a fixed interval.
 
+## Controls
+
 Configuration screen is accessible via touching on the currencies' labels.
 You can configure which currencies to show.
 
+To refresh currencies' value tap the amounts.
+
 ## TODO
-* Refresh on touch
 * Add More currencies
 * Specify how much you hold of each of chosen ones to see how much in USD you have
 * Provide a sum of USD amounts
