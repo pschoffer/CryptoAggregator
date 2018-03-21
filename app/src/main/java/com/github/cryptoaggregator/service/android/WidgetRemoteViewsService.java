@@ -8,6 +8,7 @@ import android.widget.RemoteViews;
 
 import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.R;
+import com.github.cryptoaggregator.service.widget.WidgetService;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.Map;
@@ -56,5 +57,12 @@ public class WidgetRemoteViewsService implements RemoteViewsService {
 
         PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         target.setOnClickPendingIntent(R.id.text_symbol, configPendingIntent);
+
+        final Intent updateIntent = intentFactory.createIntent(context, WidgetService.class);
+        updateIntent.setAction("Update");
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+
+        final PendingIntent updatePendingIntent = PendingIntent.getService(context, 0, updateIntent, 0);
+        target.setOnClickPendingIntent(R.id.text_value, updatePendingIntent);
     }
 }
