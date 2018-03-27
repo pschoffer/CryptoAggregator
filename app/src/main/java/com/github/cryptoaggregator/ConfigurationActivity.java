@@ -29,9 +29,6 @@ import javax.inject.Inject;
  * The configuration screen for the {@link MainWidget MainWidget} AppWidget.
  */
 public class ConfigurationActivity extends Activity {
-//
-//    private static final String PREFS_NAME = "com.github.cryptoaggregator.MainWidget";
-//    private static final String PREF_PREFIX_KEY = "appwidget_";
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     @Inject
     public WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
@@ -42,55 +39,6 @@ public class ConfigurationActivity extends Activity {
         final MainComponent component = DaggerMainComponent.builder().build();
         component.inject(this);
     }
-//    EditText mAppWidgetText;
-//    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-//        public void onClick(View v) {
-//            final Context context = ConfigurationActivity.this;
-//
-//            // When the button is clicked, store the string locally
-//            String widgetText = mAppWidgetText.getText().toString();
-//            saveTitlePref(context, mAppWidgetId, widgetText);
-//
-//            // It is the responsibility of the configuration activity to update the app widget
-//            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//            MainWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-//
-//            // Make sure we pass back the original appWidgetId
-//            Intent resultValue = new Intent();
-//            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-//            setResult(RESULT_OK, resultValue);
-//            finish();
-//        }
-//    };
-//
-//    public ConfigurationActivity() {
-//        super();
-//    }
-//
-//    // Write the prefix to the SharedPreferences object for this widget
-//    static void saveTitlePref(Context context, int appWidgetId, String text) {
-//        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-//        prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
-//        prefs.apply();
-//    }
-//
-//    // Read the prefix from the SharedPreferences object for this widget.
-//    // If there is no preference saved, get the default from a resource
-//    static String loadTitlePref(Context context, int appWidgetId) {
-//        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
-//        String titleValue = prefs.getString(PREF_PREFIX_KEY + appWidgetId, null);
-//        if (titleValue != null) {
-//            return titleValue;
-//        } else {
-//            return context.getString(R.string.appwidget_text);
-//        }
-//    }
-//
-//    static void deleteTitlePref(Context context, int appWidgetId) {
-//        SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
-//        prefs.remove(PREF_PREFIX_KEY + appWidgetId);
-//        prefs.apply();
-//    }
 
     @Override
     public void onCreate(Bundle icicle) {
