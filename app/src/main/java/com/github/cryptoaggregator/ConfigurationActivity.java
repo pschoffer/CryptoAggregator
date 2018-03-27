@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -116,7 +118,12 @@ public class ConfigurationActivity extends Activity {
 
     private void generateButtons() {
         final ViewGroup layout = findViewById(R.id.configureLayout);
-        final TableRow row = new TableRow(this);
+
+        TextView more = new TextView(this);
+        more.setText(R.string.more);
+        more.setGravity(Gravity.CENTER);
+
+        addSpanningElement(layout, more);
 
         Button save = new Button(this);
         save.setText(R.string.save);
@@ -124,10 +131,15 @@ public class ConfigurationActivity extends Activity {
         final SaveConfigListener saveConfigListener = saveConfigListenerFactory.create(this, appWidgetId);
         save.setOnClickListener(saveConfigListener);
 
-        final TableRow.LayoutParams saveParams = new TableRow.LayoutParams();
-        saveParams.span = 2;
-        saveParams.weight = 1;
-        row.addView(save, saveParams);
+        addSpanningElement(layout, save);
+    }
+
+    private void addSpanningElement(ViewGroup layout, View element) {
+        final TableRow row = new TableRow(this);
+        final TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
+        rowParams.span = 2;
+        rowParams.weight = 1;
+        row.addView(element, rowParams);
         layout.addView(row);
     }
 
