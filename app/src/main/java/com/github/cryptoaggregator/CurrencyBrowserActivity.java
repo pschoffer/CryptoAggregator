@@ -7,15 +7,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableRow;
 
+import com.github.cryptoaggregator.dependency.CurrencyBrowserComponent;
+import com.github.cryptoaggregator.dependency.DaggerCurrencyBrowserComponent;
+import com.github.cryptoaggregator.listener.button.currbrowser.SaveCurrencyBrowserListenerFactory;
 import com.github.cryptoaggregator.util.Logger;
+
+import javax.inject.Inject;
 
 /**
  * The configuration screen for the {@link MainWidget MainWidget} AppWidget.
  */
 public class CurrencyBrowserActivity extends Activity {
+    @Inject
+    public SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory;
+
     public CurrencyBrowserActivity() {
-//        final MainComponent component = DaggerMainComponent.builder().build();
-//        component.inject(this);
+        final CurrencyBrowserComponent component = DaggerCurrencyBrowserComponent.builder().build();
+        component.inject(this);
     }
 
     @Override
@@ -35,13 +43,8 @@ public class CurrencyBrowserActivity extends Activity {
         Button save = new Button(this);
         save.setText(R.string.save);
 
-        // TODO do dedicated Listener I guess
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        };
+
+        View.OnClickListener onClickListener = saveCurrencyBrowserListenerFactory.create(this);
         save.setOnClickListener(onClickListener);
 
         addSpanningElement(layout, save);
