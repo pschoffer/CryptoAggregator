@@ -2,10 +2,12 @@ package com.github.cryptoaggregator;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.github.cryptoaggregator.dependency.CurrencyBrowserComponent;
 import com.github.cryptoaggregator.dependency.DaggerCurrencyBrowserComponent;
@@ -33,8 +35,20 @@ public class CurrencyBrowserActivity extends Activity {
 
         setContentView(R.layout.currency_browser);
 
+        generateLoading();
         generateButtons();
 
+    }
+
+    private void generateLoading() {
+        final ViewGroup layout = findViewById(R.id.currencyBrowserLayout);
+
+        final TextView loadingText = new TextView(this);
+
+        loadingText.setText(R.string.loading);
+        loadingText.setGravity(Gravity.CENTER);
+
+        addSpanningElement(layout, loadingText);
     }
 
     private void generateButtons() {
