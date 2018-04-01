@@ -14,7 +14,7 @@ import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferences;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
-import com.github.cryptoaggregator.updator.Updator;
+import com.github.cryptoaggregator.updator.WidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class MainWidget extends AppWidgetProvider {
         if (coins.isEmpty()) {
             coins = preferences.getCurrencies();
         }
-        final Updator mainWidgetUpdator = mainWidgetUpdatorFactory.create(context, appWidgetId, coins);
+        final WidgetUpdator mainWidgetUpdator = mainWidgetUpdatorFactory.create(context, appWidgetId, coins);
 
         coinService.triggerUpdate(coins, mainWidgetUpdator);
 

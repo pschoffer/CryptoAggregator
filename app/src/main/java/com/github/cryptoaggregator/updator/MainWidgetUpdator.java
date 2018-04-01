@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by pschoffer on 2018-02-21.
  */
 
-public class MainWidgetUpdator implements Updator {
+public class MainWidgetUpdator implements WidgetUpdator {
     private final Context context;
     private final int appWidgetId;
     private final RemoteViewsService remoteViewsService;

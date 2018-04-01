@@ -5,7 +5,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.cryptoaggregator.listener.http.CoinMarketListener;
-import com.github.cryptoaggregator.updator.Updator;
+import com.github.cryptoaggregator.updator.WidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.List;
@@ -24,14 +24,14 @@ public class CoinMarketService implements CoinService {
     }
 
     @Override
-    public void triggerUpdate(List<String> coins, Updator updator) {
+    public void triggerUpdate(List<String> coins, WidgetUpdator widgetUpdator) {
         Logger.info("Triggered update for " + coins.toString());
 
 
-        RequestQueue queue = Volley.newRequestQueue(updator.getContext());
+        RequestQueue queue = Volley.newRequestQueue(widgetUpdator.getContext());
 
         for (String coin : coins) {
-            Response.Listener<String> listener = new CoinMarketListener(coin, updator);
+            Response.Listener<String> listener = new CoinMarketListener(coin, widgetUpdator);
             StringRequest request = new StringRequest(URL + coin, listener, null);
             queue.add(request);
         }

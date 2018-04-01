@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.github.cryptoaggregator.listener.http.CoinInfo;
 import com.github.cryptoaggregator.listener.http.CoinMarketListener;
-import com.github.cryptoaggregator.updator.Updator;
+import com.github.cryptoaggregator.updator.WidgetUpdator;
 
 import junit.framework.Assert;
 
@@ -35,7 +35,7 @@ public class CoinMarketListenerTest {
     private static final String COIN = "bitcoin";
 
     @Mock
-    private Updator updator;
+    private WidgetUpdator widgetUpdator;
 
     private CoinMarketListener listener;
 
@@ -49,7 +49,7 @@ public class CoinMarketListenerTest {
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMaximumFractionDigits(2);
         response = "[ {\"price_usd\": \"" + decimalFormat.format(PRICE_USD) + "\", \"symbol\": \"" + SYMBOL + "\"} ]";
-        listener = new CoinMarketListener(COIN, updator);
+        listener = new CoinMarketListener(COIN, widgetUpdator);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class CoinMarketListenerTest {
         listener.onResponse(response);
 
         ArgumentCaptor<CoinInfo> argumentCaptor = ArgumentCaptor.forClass(CoinInfo.class);
-        verify(updator).update(eq(COIN), argumentCaptor.capture());
+        verify(widgetUpdator).update(eq(COIN), argumentCaptor.capture());
         final CoinInfo state = argumentCaptor.getValue();
 
         Assert.assertEquals(PRICE_USD.setScale(1, BigDecimal.ROUND_HALF_UP), state.getPrice());
@@ -69,7 +69,7 @@ public class CoinMarketListenerTest {
         listener.onResponse("Wrong");
 
         ArgumentCaptor<CoinInfo> argumentCaptor = ArgumentCaptor.forClass(CoinInfo.class);
-        verify(updator).update(eq(COIN), argumentCaptor.capture());
+        verify(widgetUpdator).update(eq(COIN), argumentCaptor.capture());
         final CoinInfo state = argumentCaptor.getValue();
 
         Assert.assertNull(state);

@@ -21,7 +21,7 @@ public class MainWidgetUpdatorFactory {
         this.widgetRemoteViewsServiceFactory = widgetRemoteViewsServiceFactory;
     }
 
-    public Updator create(Context context, int appWidgetId, List<String> coins) {
+    public WidgetUpdator create(Context context, int appWidgetId, List<String> coins) {
         return new MainWidgetUpdator(context, appWidgetId, coins, widgetRemoteViewsServiceFactory);
     }
 }

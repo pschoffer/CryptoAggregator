@@ -1,6 +1,6 @@
 package com.github.cryptoaggregator.service.coin;
 
-import com.github.cryptoaggregator.updator.Updator;
+import com.github.cryptoaggregator.updator.WidgetUpdator;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface CoinService {
-    void triggerUpdate(List<String> symbols, Updator updator);
+    void triggerUpdate(List<String> symbols, WidgetUpdator widgetUpdator);
 }

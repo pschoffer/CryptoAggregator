@@ -1,7 +1,7 @@
 package com.github.cryptoaggregator.listener.http;
 
 import com.android.volley.Response;
-import com.github.cryptoaggregator.updator.Updator;
+import com.github.cryptoaggregator.updator.WidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -11,11 +11,11 @@ import com.google.gson.JsonSyntaxException;
  */
 
 public class CoinMarketListener implements Response.Listener<String>{
-    private final Updator updator;
+    private final WidgetUpdator widgetUpdator;
     private final String coin;
 
-    public CoinMarketListener(String coin, Updator updator) {
-        this.updator = updator;
+    public CoinMarketListener(String coin, WidgetUpdator widgetUpdator) {
+        this.widgetUpdator = widgetUpdator;
         this.coin = coin;
     }
 
@@ -25,10 +25,10 @@ public class CoinMarketListener implements Response.Listener<String>{
         try {
             final CoinInfo coinInfo = parseResponse(response);
 
-            updator.update(coin, coinInfo);
+            widgetUpdator.update(coin, coinInfo);
         } catch (JsonSyntaxException ex) {
             Logger.error("Failed to parse the response", ex);
-            updator.update(coin, null);
+            widgetUpdator.update(coin, null);
         }
     }
 
