@@ -1,4 +1,4 @@
-package com.github.cryptoaggregator.listener.button;
+package com.github.cryptoaggregator.listener.button.configuration;
 
 import android.app.Activity;
 

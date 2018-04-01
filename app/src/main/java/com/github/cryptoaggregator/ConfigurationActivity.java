@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
-import com.github.cryptoaggregator.listener.button.MoreConfigListener;
-import com.github.cryptoaggregator.listener.button.MoreConfigListenerFactory;
-import com.github.cryptoaggregator.listener.button.SaveConfigListener;
-import com.github.cryptoaggregator.listener.button.SaveConfigListenerFactory;
+import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListener;
+import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListenerFactory;
+import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListener;
+import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListenerFactory;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferences;
