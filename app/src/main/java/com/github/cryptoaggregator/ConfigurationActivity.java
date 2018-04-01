@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
+import com.github.cryptoaggregator.listener.button.MoreConfigListener;
+import com.github.cryptoaggregator.listener.button.MoreConfigListenerFactory;
 import com.github.cryptoaggregator.listener.button.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.SaveConfigListenerFactory;
 import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
@@ -34,6 +36,8 @@ public class ConfigurationActivity extends Activity {
     public WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
     @Inject
     public SaveConfigListenerFactory saveConfigListenerFactory;
+    @Inject
+    public MoreConfigListenerFactory moreConfigListenerFactory;
 
     public ConfigurationActivity() {
         final MainComponent component = DaggerMainComponent.builder().build();
@@ -70,6 +74,8 @@ public class ConfigurationActivity extends Activity {
         TextView more = new TextView(this);
         more.setText(R.string.more);
         more.setGravity(Gravity.CENTER);
+        final MoreConfigListener moreListener = moreConfigListenerFactory.create(this);
+        more.setOnClickListener(moreListener);
 
         addSpanningElement(layout, more);
 
