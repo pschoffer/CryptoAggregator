@@ -10,11 +10,11 @@ import com.google.gson.JsonSyntaxException;
  * Created by pschoffer on 2018-02-21.
  */
 
-public class CoinMarketListener implements Response.Listener<String>{
+public class CoinMarketWidgetListener implements Response.Listener<String>{
     private final WidgetUpdator widgetUpdator;
     private final String coin;
 
-    public CoinMarketListener(String coin, WidgetUpdator widgetUpdator) {
+    public CoinMarketWidgetListener(String coin, WidgetUpdator widgetUpdator) {
         this.widgetUpdator = widgetUpdator;
         this.coin = coin;
     }

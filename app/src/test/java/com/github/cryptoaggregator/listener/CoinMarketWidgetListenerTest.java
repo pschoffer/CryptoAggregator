@@ -3,7 +3,7 @@ package com.github.cryptoaggregator.listener;
 import android.util.Log;
 
 import com.github.cryptoaggregator.listener.http.CoinInfo;
-import com.github.cryptoaggregator.listener.http.CoinMarketListener;
+import com.github.cryptoaggregator.listener.http.CoinMarketWidgetListener;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
 
 import junit.framework.Assert;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Log.class)
-public class CoinMarketListenerTest {
+public class CoinMarketWidgetListenerTest {
     private static final BigDecimal PRICE_USD = new BigDecimal(10.1);
     private static final String SYMBOL = "btc";
     private static final String COIN = "bitcoin";
@@ -37,7 +37,7 @@ public class CoinMarketListenerTest {
     @Mock
     private WidgetUpdator widgetUpdator;
 
-    private CoinMarketListener listener;
+    private CoinMarketWidgetListener listener;
 
     private String response;
 
@@ -49,7 +49,7 @@ public class CoinMarketListenerTest {
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setMaximumFractionDigits(2);
         response = "[ {\"price_usd\": \"" + decimalFormat.format(PRICE_USD) + "\", \"symbol\": \"" + SYMBOL + "\"} ]";
-        listener = new CoinMarketListener(COIN, widgetUpdator);
+        listener = new CoinMarketWidgetListener(COIN, widgetUpdator);
     }
 
     @Test
