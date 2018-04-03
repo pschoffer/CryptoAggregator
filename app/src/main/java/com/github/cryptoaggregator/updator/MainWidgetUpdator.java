@@ -20,6 +20,7 @@ import java.util.Map;
  */
 
 public class MainWidgetUpdator implements WidgetUpdator {
+    private static final String ERROR = "ERROR";
     private final Context context;
     private final int appWidgetId;
     private final RemoteViewsService remoteViewsService;
@@ -50,8 +51,15 @@ public class MainWidgetUpdator implements WidgetUpdator {
         Map<String, String> update = new HashMap<>();
         for (String coin : coins) {
             final CoinInfo state = results.get(coin);
-            final String symbol = state.getSymbol().toUpperCase(Locale.getDefault());
-            final String value = "$" + state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            final String symbol;
+            final String value;
+            if (state == null) {
+                symbol = coin;
+                value = ERROR;
+            } else {
+                symbol = state.getSymbol().toUpperCase(Locale.getDefault());
+                value = "$" + state.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP);
+            }
             update.put(symbol, value);
         }
 

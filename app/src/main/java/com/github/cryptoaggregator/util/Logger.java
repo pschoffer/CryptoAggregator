@@ -15,6 +15,9 @@ public class Logger {
     public static void error(String msg) {
         Log.e(TAG, msg);
     }
+    public static void warn(String msg) {
+        Log.w(TAG, msg);
+    }
     public static void error(String msg, Throwable tr) {
         Log.e(TAG, msg, tr);
     }
