@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.github.cryptoaggregator.dependency.CurrencyBrowserComponent;
 import com.github.cryptoaggregator.dependency.DaggerCurrencyBrowserComponent;
 import com.github.cryptoaggregator.listener.button.currbrowser.SaveCurrencyBrowserListenerFactory;
+import com.github.cryptoaggregator.service.coin.CoinService;
 import com.github.cryptoaggregator.util.Logger;
 
 import javax.inject.Inject;
@@ -22,6 +23,8 @@ import javax.inject.Inject;
 public class CurrencyBrowserActivity extends Activity {
     @Inject
     public SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory;
+    @Inject
+    public CoinService coinService;
 
     public CurrencyBrowserActivity() {
         final CurrencyBrowserComponent component = DaggerCurrencyBrowserComponent.builder().build();
@@ -38,6 +41,7 @@ public class CurrencyBrowserActivity extends Activity {
         generateLoading();
         generateButtons();
 
+        coinService.triggerListLoading(this);
     }
 
     private void generateLoading() {
