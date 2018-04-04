@@ -9,13 +9,14 @@ in a fixed interval.
 
 ## Controls
 
-Configuration screen is accessible via touching on the currencies' labels.
+Configuration screen is accessible via tapping on the currencies' labels.
 You can configure which currencies to show.
 
 To refresh currencies' value tap the amounts.
 
 ## TODO
 * Add More currencies
+* Make a github build pipeline somehow and enforce PRs
 * Specify how much you hold of each of chosen ones to see how much in USD you have
 * Provide a sum of USD amounts
 * Solve more than one widget config
