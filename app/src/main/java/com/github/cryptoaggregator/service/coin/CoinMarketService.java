@@ -3,10 +3,8 @@ package com.github.cryptoaggregator.service.coin;
 import android.content.Context;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.cryptoaggregator.listener.http.CoinMarketListErrorListener;
 import com.github.cryptoaggregator.listener.http.CoinMarketListListener;
 import com.github.cryptoaggregator.listener.http.CoinMarketWidgetListener;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
@@ -46,9 +44,8 @@ public class CoinMarketService implements CoinService {
         Logger.info("Triggered loading of the list of currencies.");
 
         RequestQueue queue = Volley.newRequestQueue(context);
-        Response.Listener<String> listener = new CoinMarketListListener();
-        Response.ErrorListener errorListener = new CoinMarketListErrorListener();
-        StringRequest request = new StringRequest(URL, listener, errorListener);
+        CoinMarketListListener listener = new CoinMarketListListener();
+        StringRequest request = new StringRequest(URL, listener, listener);
 
         queue.add(request);
     }
