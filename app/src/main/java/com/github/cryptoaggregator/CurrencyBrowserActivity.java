@@ -13,6 +13,8 @@ import com.github.cryptoaggregator.dependency.CurrencyBrowserComponent;
 import com.github.cryptoaggregator.dependency.DaggerCurrencyBrowserComponent;
 import com.github.cryptoaggregator.listener.button.currbrowser.SaveCurrencyBrowserListenerFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
+import com.github.cryptoaggregator.updator.CurrencyBrowserUpdator;
+import com.github.cryptoaggregator.updator.CurrencyBrowserUpdatorFactory;
 import com.github.cryptoaggregator.util.Logger;
 
 import javax.inject.Inject;
@@ -25,6 +27,8 @@ public class CurrencyBrowserActivity extends Activity {
     public SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory;
     @Inject
     public CoinService coinService;
+    @Inject
+    public CurrencyBrowserUpdatorFactory currencyBrowserUpdatorFactory;
 
     public CurrencyBrowserActivity() {
         final CurrencyBrowserComponent component = DaggerCurrencyBrowserComponent.builder().build();
@@ -41,7 +45,8 @@ public class CurrencyBrowserActivity extends Activity {
         generateLoading();
         generateButtons();
 
-        coinService.triggerListLoading(this);
+        final CurrencyBrowserUpdator currencyBrowserUpdator = currencyBrowserUpdatorFactory.create(this);
+        coinService.triggerListLoading(this, currencyBrowserUpdator);
     }
 
     private void generateLoading() {

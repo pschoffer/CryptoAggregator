@@ -6,4 +6,6 @@ package com.github.cryptoaggregator.updator;
 
 public interface BrowserUpdator {
     void update();
+
+    void updateWithError();
 }

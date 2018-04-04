@@ -2,6 +2,7 @@ package com.github.cryptoaggregator.service.coin;
 
 import android.content.Context;
 
+import com.github.cryptoaggregator.updator.BrowserUpdator;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
 public interface CoinService {
     void triggerUpdate(List<String> symbols, WidgetUpdator widgetUpdator);
 
-    void triggerListLoading(Context context);
+    void triggerListLoading(Context context, BrowserUpdator currencyBrowserUpdator);
 }

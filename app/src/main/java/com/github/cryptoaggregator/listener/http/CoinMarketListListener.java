@@ -2,6 +2,7 @@ package com.github.cryptoaggregator.listener.http;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.github.cryptoaggregator.updator.BrowserUpdator;
 import com.github.cryptoaggregator.util.Logger;
 import com.google.gson.Gson;
 
@@ -11,6 +12,11 @@ import com.google.gson.Gson;
 
 public class CoinMarketListListener implements Response.Listener<String>, Response.ErrorListener {
 
+    private final BrowserUpdator browserUpdator;
+
+    public CoinMarketListListener(BrowserUpdator currencyBrowserUpdator) {
+        browserUpdator = currencyBrowserUpdator;
+    }
 
     @Override
     public void onResponse(String response) {
@@ -26,5 +32,6 @@ public class CoinMarketListListener implements Response.Listener<String>, Respon
     public void onErrorResponse(VolleyError error) {
         Logger.warn("Got an error response: " + error.getMessage());
 
+        browserUpdator.updateWithError();
     }
 }

@@ -2,6 +2,7 @@ package com.github.cryptoaggregator.updator;
 
 import android.app.Activity;
 
+import com.github.cryptoaggregator.R;
 import com.github.cryptoaggregator.util.Logger;
 
 /**
@@ -18,6 +19,14 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     @Override
     public void update() {
         Logger.info("Updating currency browser.");
+
+    }
+
+    @Override
+    public void updateWithError() {
+        Logger.info("Updating currency browser with Error.");
+
+        currencyBrowser.setContentView(R.layout.currency_browser);
 
     }
 }
