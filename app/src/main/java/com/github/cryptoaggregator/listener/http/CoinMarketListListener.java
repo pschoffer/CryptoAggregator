@@ -21,6 +21,9 @@ public class CoinMarketListListener implements Response.Listener<String>, Respon
     @Override
     public void onResponse(String response) {
         Logger.info("Got a response:\n" + response);
+
+        final CoinInfo[] coinInfos = parseResponse(response);
+        browserUpdator.update(coinInfos);
     }
 
     private CoinInfo[] parseResponse(String json) {
