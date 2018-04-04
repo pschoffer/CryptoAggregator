@@ -8,4 +8,6 @@ public interface BrowserUpdator {
     void update();
 
     void updateWithError();
+
+    void updateWithLoading();
 }
