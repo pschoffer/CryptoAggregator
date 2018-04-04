@@ -8,7 +8,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.cryptoaggregator.listener.http.CoinMarketListErrorListener;
 import com.github.cryptoaggregator.listener.http.CoinMarketListListener;
-import com.github.cryptoaggregator.listener.http.CoinMarketWidgeErrortListener;
 import com.github.cryptoaggregator.listener.http.CoinMarketWidgetListener;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
@@ -36,9 +35,8 @@ public class CoinMarketService implements CoinService {
         RequestQueue queue = Volley.newRequestQueue(widgetUpdator.getContext());
 
         for (String coin : coins) {
-            Response.Listener<String> listener = new CoinMarketWidgetListener(coin, widgetUpdator);
-            Response.ErrorListener errorListener = new CoinMarketWidgeErrortListener(coin, widgetUpdator);
-            StringRequest request = new StringRequest(URL + coin, listener, errorListener);
+            CoinMarketWidgetListener listener = new CoinMarketWidgetListener(coin, widgetUpdator);
+            StringRequest request = new StringRequest(URL + coin, listener, listener);
             queue.add(request);
         }
     }

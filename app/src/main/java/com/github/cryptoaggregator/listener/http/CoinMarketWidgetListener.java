@@ -1,6 +1,7 @@
 package com.github.cryptoaggregator.listener.http;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
 import com.github.cryptoaggregator.util.Logger;
 import com.google.gson.Gson;
@@ -10,7 +11,7 @@ import com.google.gson.JsonSyntaxException;
  * Created by pschoffer on 2018-02-21.
  */
 
-public class CoinMarketWidgetListener implements Response.Listener<String>{
+public class CoinMarketWidgetListener implements Response.Listener<String>, Response.ErrorListener {
     private final WidgetUpdator widgetUpdator;
     private final String coin;
 
@@ -36,5 +37,12 @@ public class CoinMarketWidgetListener implements Response.Listener<String>{
         final Gson gson = new Gson();
         final CoinInfo[] coinInfos = gson.fromJson(json, CoinInfo[].class);
         return coinInfos[0];
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Logger.warn("Got an error response: " + error.getMessage());
+
+        widgetUpdator.update(coin, null);
     }
 }
