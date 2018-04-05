@@ -10,8 +10,8 @@ import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.service.android.RemoteViewsService;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.PreferenceService;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 import com.github.cryptoaggregator.updator.WidgetUpdator;
@@ -30,15 +30,15 @@ public class MainWidget extends AppWidgetProvider {
     private static CoinService coinService;
     private static WidgetRemoteViewsServiceFactory widgetRemoteViewsServiceFactory;
     private static MainWidgetUpdatorFactory mainWidgetUpdatorFactory;
-    private static WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+    private static PreferenceServiceFactory preferenceServiceFactory;
 
     static public void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         initInjection();
 
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(context);
-        final WidgetPreferences preferences = widgetPreferenceService.loadPreferences(appWidgetId);
+        final PreferenceService preferenceService = preferenceServiceFactory.create(context);
+        final WidgetPreferences preferences = preferenceService.loadWidgetPreferences(appWidgetId);
         List<String> coins = preferences.getEnabledCurrencies();
         if (coins.isEmpty()) {
             coins = preferences.getCurrencies();
@@ -55,7 +55,7 @@ public class MainWidget extends AppWidgetProvider {
         coinService = component.getCoinService();
         widgetRemoteViewsServiceFactory = component.getWidgetRemoteViewsServiceFactory();
         mainWidgetUpdatorFactory = component.getMainWidgetUpdatorFactory();
-        widgetPreferenceServiceFactory = component.getWidgetPreferenceServiceFactory();
+        preferenceServiceFactory = component.getWidgetPreferenceServiceFactory();
     }
 
     private static void setLoadingContent(AppWidgetManager appWidgetManager, int appWidgetId, List<String> coins, RemoteViewsService remoteViewsService) {
@@ -81,10 +81,10 @@ public class MainWidget extends AppWidgetProvider {
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(context);
+        final PreferenceService preferenceService = preferenceServiceFactory.create(context);
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            widgetPreferenceService.clearPreferences(appWidgetId);
+            preferenceService.clearWidgetPreferences(appWidgetId);
         }
     }
 

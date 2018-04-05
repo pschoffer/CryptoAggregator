@@ -18,8 +18,8 @@ import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListe
 import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListenerFactory;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListenerFactory;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.PreferenceService;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
@@ -33,7 +33,7 @@ import javax.inject.Inject;
 public class ConfigurationActivity extends Activity {
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     @Inject
-    public WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+    public PreferenceServiceFactory preferenceServiceFactory;
     @Inject
     public SaveConfigListenerFactory saveConfigListenerFactory;
     @Inject
@@ -98,8 +98,8 @@ public class ConfigurationActivity extends Activity {
     }
 
     private void generateCoinsLines() {
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(this);
-        final WidgetPreferences widgetPreferences = widgetPreferenceService.loadPreferences(appWidgetId);
+        final PreferenceService preferenceService = preferenceServiceFactory.create(this);
+        final WidgetPreferences widgetPreferences = preferenceService.loadWidgetPreferences(appWidgetId);
 
         final List<String> availableCoins = widgetPreferences.getCurrencies();
         final ViewGroup layout = findViewById(R.id.configureLayout);

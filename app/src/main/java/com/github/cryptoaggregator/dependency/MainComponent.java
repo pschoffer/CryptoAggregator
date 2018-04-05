@@ -3,7 +3,7 @@ package com.github.cryptoaggregator.dependency;
 import com.github.cryptoaggregator.ConfigurationActivity;
 import com.github.cryptoaggregator.service.android.WidgetRemoteViewsServiceFactory;
 import com.github.cryptoaggregator.service.coin.CoinService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.updator.MainWidgetUpdatorFactory;
 
 import javax.inject.Singleton;
@@ -23,7 +23,7 @@ public interface MainComponent {
 
     MainWidgetUpdatorFactory getMainWidgetUpdatorFactory();
 
-    WidgetPreferenceServiceFactory getWidgetPreferenceServiceFactory();
+    PreferenceServiceFactory getWidgetPreferenceServiceFactory();
 
     void inject(ConfigurationActivity configurationActivity);
 }

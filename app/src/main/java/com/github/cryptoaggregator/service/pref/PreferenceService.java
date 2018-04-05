@@ -10,7 +10,7 @@ import com.github.cryptoaggregator.util.Logger;
  * Created by pschoffer on 2018-03-16.
  */
 
-public class WidgetPreferenceService {
+public class PreferenceService {
     private static final String PREFS_NAME = "com.github.cryptoaggregator.MainWidget";
     private static final String ENABLE_PREF_PREFIX = "ENABLE_COIN_";
     private static final String COINS_ORDER = "COINS_ORDER_";
@@ -19,11 +19,11 @@ public class WidgetPreferenceService {
 
     private final Context context;
 
-    WidgetPreferenceService(Context context) {
+    PreferenceService(Context context) {
         this.context = context;
     }
 
-    public void persistPreferences(int appWidgetId, WidgetPreferences preferences) {
+    public void persistWidgetPreferences(int appWidgetId, WidgetPreferences preferences) {
         Logger.info("Persisting preferences for widget " + appWidgetId);
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
 
@@ -41,7 +41,7 @@ public class WidgetPreferenceService {
         prefs.apply();
     }
 
-    public WidgetPreferences loadPreferences(int appWidgetId) {
+    public WidgetPreferences loadWidgetPreferences(int appWidgetId) {
         Logger.info("Loading preferences for widget " + appWidgetId);
         final WidgetPreferences widgetPreferences = new WidgetPreferences();
 
@@ -55,7 +55,7 @@ public class WidgetPreferenceService {
         return widgetPreferences;
     }
 
-    public void clearPreferences(int appWidgetId) {
+    public void clearWidgetPreferences(int appWidgetId) {
         Logger.info("Clearing preferences for widget " + appWidgetId);
 
         final SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);

@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.github.cryptoaggregator.MainWidget;
 import com.github.cryptoaggregator.R;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.PreferenceService;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
@@ -21,10 +21,10 @@ import com.github.cryptoaggregator.util.Logger;
 public class SaveConfigListener implements View.OnClickListener {
     private final Activity configActivity;
     private final int appWidgetId;
-    private final WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+    private final PreferenceServiceFactory preferenceServiceFactory;
 
-    SaveConfigListener(WidgetPreferenceServiceFactory widgetPreferenceServiceFactory, Activity context, int appWidgetId) {
-        this.widgetPreferenceServiceFactory = widgetPreferenceServiceFactory;
+    SaveConfigListener(PreferenceServiceFactory preferenceServiceFactory, Activity context, int appWidgetId) {
+        this.preferenceServiceFactory = preferenceServiceFactory;
         this.configActivity = context;
         this.appWidgetId = appWidgetId;
     }
@@ -50,8 +50,8 @@ public class SaveConfigListener implements View.OnClickListener {
             }
         }
 
-        final WidgetPreferenceService widgetPreferenceService = widgetPreferenceServiceFactory.create(configActivity);
-        widgetPreferenceService.persistPreferences(appWidgetId, preferences);
+        final PreferenceService preferenceService = preferenceServiceFactory.create(configActivity);
+        preferenceService.persistWidgetPreferences(appWidgetId, preferences);
 
         // It is the responsibility of the configuration activity to update the app widget
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(configActivity);

@@ -10,11 +10,11 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class WidgetPreferenceServiceFactory {
+public class PreferenceServiceFactory {
     @Inject
-    public WidgetPreferenceServiceFactory() {}
+    public PreferenceServiceFactory() {}
 
-    public WidgetPreferenceService create(Context context) {
-        return new WidgetPreferenceService(context);
+    public PreferenceService create(Context context) {
+        return new PreferenceService(context);
     }
 }

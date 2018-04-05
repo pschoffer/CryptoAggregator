@@ -2,7 +2,7 @@ package com.github.cryptoaggregator.listener.button.configuration;
 
 import android.app.Activity;
 
-import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -12,14 +12,14 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class SaveConfigListenerFactory {
-    private final WidgetPreferenceServiceFactory widgetPreferenceServiceFactory;
+    private final PreferenceServiceFactory preferenceServiceFactory;
 
     @Inject
-    public SaveConfigListenerFactory(WidgetPreferenceServiceFactory widgetPreferenceServiceFactory) {
-        this.widgetPreferenceServiceFactory = widgetPreferenceServiceFactory;
+    public SaveConfigListenerFactory(PreferenceServiceFactory preferenceServiceFactory) {
+        this.preferenceServiceFactory = preferenceServiceFactory;
     }
 
     public SaveConfigListener create(Activity configActivity, int appWidgetId) {
-        return new SaveConfigListener(widgetPreferenceServiceFactory, configActivity, appWidgetId);
+        return new SaveConfigListener(preferenceServiceFactory, configActivity, appWidgetId);
     }
 }
