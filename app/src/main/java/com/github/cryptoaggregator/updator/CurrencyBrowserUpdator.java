@@ -5,14 +5,20 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.cryptoaggregator.R;
+import com.github.cryptoaggregator.listener.button.currbrowser.ClickCurrencyBrowserListener;
+import com.github.cryptoaggregator.listener.button.currbrowser.ClickCurrencyBrowserListenerFactory;
 import com.github.cryptoaggregator.listener.button.currbrowser.SaveCurrencyBrowserListenerFactory;
 import com.github.cryptoaggregator.listener.http.CoinInfo;
+import com.github.cryptoaggregator.service.pref.GlobalPreferences;
+import com.github.cryptoaggregator.service.pref.PreferenceService;
+import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.util.Logger;
+
+import java.util.List;
 
 /**
  * Created by pschoffer on 2018-04-03.
@@ -23,9 +29,13 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     private static final int CURRENCY_BROWSER_COLUMN_COUNT = 1;
     private final Activity currencyBrowser;
     private final SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory;
+    private final ClickCurrencyBrowserListenerFactory clickCurrencyBrowserListenerFactory;
+    private final PreferenceServiceFactory preferenceServiceFactory;
 
-    public CurrencyBrowserUpdator(SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory, Activity currencyBrowser) {
+    public CurrencyBrowserUpdator(SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory, ClickCurrencyBrowserListenerFactory clickCurrencyBrowserListenerFactory, PreferenceServiceFactory preferenceServiceFactory, Activity currencyBrowser) {
         this.saveCurrencyBrowserListenerFactory = saveCurrencyBrowserListenerFactory;
+        this.clickCurrencyBrowserListenerFactory = clickCurrencyBrowserListenerFactory;
+        this.preferenceServiceFactory = preferenceServiceFactory;
         this.currencyBrowser = currencyBrowser;
     }
 
@@ -42,12 +52,24 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     private void generateCurrencyList(CoinInfo[] coinInfos) {
         final ViewGroup layout = currencyBrowser.findViewById(R.id.currencyBrowserLayout);
 
+        final PreferenceService preferenceService = preferenceServiceFactory.create(currencyBrowser);
+        final GlobalPreferences globalPreferences = preferenceService.loadGlobalPreferences();
+        final List<String> activeCurrencies = globalPreferences.getActiveCurrencies();
+
         for (CoinInfo coinInfo : coinInfos) {
+            if (activeCurrencies.contains(coinInfo.getId())) {
+                continue;
+            }
+
+            final ClickCurrencyBrowserListener clickCurrencyBrowserListener = clickCurrencyBrowserListenerFactory.create(coinInfo.getId(), currencyBrowser);
+
             TableRow row = new TableRow(currencyBrowser);
 
-            TextView label = new TextView(currencyBrowser);
-            label.setText(coinInfo.getName());
-            row.addView(label, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            TextView coin = new TextView(currencyBrowser);
+            final String label = String.format("[%s] %s", coinInfo.getSymbol(), coinInfo.getName());
+            coin.setText(label);
+            coin.setOnClickListener(clickCurrencyBrowserListener);
+            row.addView(coin, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             layout.addView(row);
         }
