@@ -18,6 +18,7 @@ import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListe
 import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListenerFactory;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListenerFactory;
+import com.github.cryptoaggregator.service.pref.GlobalPreferences;
 import com.github.cryptoaggregator.service.pref.PreferenceService;
 import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.service.pref.WidgetPreferences;
@@ -100,8 +101,9 @@ public class ConfigurationActivity extends Activity {
     private void generateCoinsLines() {
         final PreferenceService preferenceService = preferenceServiceFactory.create(this);
         final WidgetPreferences widgetPreferences = preferenceService.loadWidgetPreferences(appWidgetId);
+        final GlobalPreferences globalPreferences = preferenceService.loadGlobalPreferences();
 
-        final List<String> availableCoins = widgetPreferences.getCurrencies();
+        final List<String> availableCoins = globalPreferences.getActiveCurrencies();
         final ViewGroup layout = findViewById(R.id.configureLayout);
         for (String availableCoin : availableCoins) {
             TableRow row = new TableRow(this);
