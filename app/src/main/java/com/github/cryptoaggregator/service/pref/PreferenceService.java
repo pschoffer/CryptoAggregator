@@ -86,6 +86,20 @@ public class PreferenceService {
         return globalPreferences;
     }
 
+    public void persistGlobalPreferences(GlobalPreferences preferences) {
+        Logger.info("Persisting global preferences");
+        SharedPreferences.Editor prefs = context.getSharedPreferences(GLOBAL_PREFS_NAME, 0).edit();
+
+        final StringBuilder coins = new StringBuilder();
+        for (String coin : preferences.getActiveCurrencies()) {
+            if (!coins.toString().isEmpty()) {
+                coins.append(COINS_SEPARATOR);
+            }
+            coins.append(coin);
+        }
+        prefs.putString(ACTIVE_COINS_PREF, coins.toString());
+        prefs.apply();
+    }
     @NonNull
     private String getCoinOrderKey(int appWidgetId) {
         return COINS_ORDER_PREF_PREFIX + appWidgetId;
