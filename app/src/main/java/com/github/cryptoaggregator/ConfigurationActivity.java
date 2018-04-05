@@ -18,9 +18,9 @@ import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListe
 import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListenerFactory;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListenerFactory;
-import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceService;
-import com.github.cryptoaggregator.service.widget.pref.WidgetPreferenceServiceFactory;
-import com.github.cryptoaggregator.service.widget.pref.WidgetPreferences;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceService;
+import com.github.cryptoaggregator.service.pref.WidgetPreferenceServiceFactory;
+import com.github.cryptoaggregator.service.pref.WidgetPreferences;
 import com.github.cryptoaggregator.util.Logger;
 
 import java.util.List;
