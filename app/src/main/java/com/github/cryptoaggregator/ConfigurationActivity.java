@@ -16,6 +16,8 @@ import com.github.cryptoaggregator.dependency.DaggerMainComponent;
 import com.github.cryptoaggregator.dependency.MainComponent;
 import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListener;
 import com.github.cryptoaggregator.listener.button.configuration.MoreConfigListenerFactory;
+import com.github.cryptoaggregator.listener.button.configuration.RemovalConfigListener;
+import com.github.cryptoaggregator.listener.button.configuration.RemovalConfigListenerFactory;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListener;
 import com.github.cryptoaggregator.listener.button.configuration.SaveConfigListenerFactory;
 import com.github.cryptoaggregator.service.pref.GlobalPreferences;
@@ -39,6 +41,8 @@ public class ConfigurationActivity extends Activity {
     public SaveConfigListenerFactory saveConfigListenerFactory;
     @Inject
     public MoreConfigListenerFactory moreConfigListenerFactory;
+    @Inject
+    public RemovalConfigListenerFactory removalConfigListenerFactory;
 
     public ConfigurationActivity() {
         final MainComponent component = DaggerMainComponent.builder().build();
@@ -115,6 +119,12 @@ public class ConfigurationActivity extends Activity {
             TextView label = new TextView(this);
             label.setText(availableCoin);
             row.addView(label, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+            TextView removal = new TextView(this);
+            removal.setText("x");
+            final View.OnClickListener removalConfigListener = removalConfigListenerFactory.create(this, availableCoin);
+            removal.setOnClickListener(removalConfigListener);
+            row.addView(removal, TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
 
             layout.addView(row);
         }
