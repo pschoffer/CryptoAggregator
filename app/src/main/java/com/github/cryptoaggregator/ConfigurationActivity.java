@@ -96,7 +96,7 @@ public class ConfigurationActivity extends Activity {
     private void addSpanningElement(ViewGroup layout, View element) {
         final TableRow row = new TableRow(this);
         final TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
-        rowParams.span = 2;
+        rowParams.span = 3;
         rowParams.weight = 1;
         row.addView(element, rowParams);
         layout.addView(row);
@@ -122,6 +122,7 @@ public class ConfigurationActivity extends Activity {
 
             TextView removal = new TextView(this);
             removal.setText("x");
+            removal.setTextColor(getResources().getColor(R.color.colorError));
             final View.OnClickListener removalConfigListener = removalConfigListenerFactory.create(this, availableCoin);
             removal.setOnClickListener(removalConfigListener);
             row.addView(removal, TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
