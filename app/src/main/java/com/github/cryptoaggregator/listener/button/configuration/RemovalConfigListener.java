@@ -40,5 +40,7 @@ public class RemovalConfigListener implements View.OnClickListener {
         globalPreferences.removeCurrency(currencyToBeRemoved);
 
         preferenceService.persistGlobalPreferences(globalPreferences);
+
+        configActivity.recreate();
     }
 }
