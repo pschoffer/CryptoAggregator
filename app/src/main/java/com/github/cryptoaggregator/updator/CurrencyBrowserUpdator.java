@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -18,7 +22,10 @@ import com.github.cryptoaggregator.service.pref.PreferenceService;
 import com.github.cryptoaggregator.service.pref.PreferenceServiceFactory;
 import com.github.cryptoaggregator.util.Logger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by pschoffer on 2018-04-03.
@@ -31,6 +38,7 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     private final SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory;
     private final ClickCurrencyBrowserListenerFactory clickCurrencyBrowserListenerFactory;
     private final PreferenceServiceFactory preferenceServiceFactory;
+    private int lastId;
 
     public CurrencyBrowserUpdator(SaveCurrencyBrowserListenerFactory saveCurrencyBrowserListenerFactory, ClickCurrencyBrowserListenerFactory clickCurrencyBrowserListenerFactory, PreferenceServiceFactory preferenceServiceFactory, Activity currencyBrowser) {
         this.saveCurrencyBrowserListenerFactory = saveCurrencyBrowserListenerFactory;
@@ -43,8 +51,7 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     public void update(CoinInfo[] coinInfos) {
         Logger.info("Updating currency browser.");
 
-        currencyBrowser.setContentView(CURRENCY_BROWSER_LAYOUT_ID);
-
+        resetLayout();
         generateCurrencyList(coinInfos);
         generateButtons();
     }
@@ -55,34 +62,28 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
         final PreferenceService preferenceService = preferenceServiceFactory.create(currencyBrowser);
         final GlobalPreferences globalPreferences = preferenceService.loadGlobalPreferences();
         final List<String> activeCurrencies = globalPreferences.getActiveCurrencies();
-
+        final List<String> currenciesToShow = new ArrayList<>();
         for (CoinInfo coinInfo : coinInfos) {
             if (activeCurrencies.contains(coinInfo.getId())) {
                 continue;
             }
-
-            final ClickCurrencyBrowserListener clickCurrencyBrowserListener = clickCurrencyBrowserListenerFactory.create(coinInfo.getId(), currencyBrowser);
-
-            TableRow row = new TableRow(currencyBrowser);
-
-            TextView coin = new TextView(currencyBrowser);
             final String label = String.format("[%s] %s", coinInfo.getSymbol(), coinInfo.getName());
-            coin.setText(label);
-            coin.setOnClickListener(clickCurrencyBrowserListener);
-            row.addView(coin, TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-            layout.addView(row);
+            currenciesToShow.add(label);
         }
 
+        final ListView listView = new ListView(currencyBrowser);
 
+        ListAdapter arrayAdapter = new ArrayAdapter<>(currencyBrowser, R.layout.currency_browser_item, currenciesToShow);
+        listView.setAdapter(arrayAdapter);
+//        listView.setOnItemClickListener();
+        addSpanningElement(layout, listView);
     }
 
     @Override
     public void updateWithError() {
         Logger.info("Updating currency browser with Error.");
 
-        currencyBrowser.setContentView(CURRENCY_BROWSER_LAYOUT_ID);
-
+        resetLayout();
         generateSpanningText(R.string.error);
         generateButtons();
     }
@@ -90,10 +91,14 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     @Override
     public void updateWithLoading() {
         Logger.info("Updating currency browser with Loading.");
-        currencyBrowser.setContentView(CURRENCY_BROWSER_LAYOUT_ID);
-
+        resetLayout();
         generateSpanningText(R.string.loading);
         generateButtons();
+    }
+
+    private void resetLayout() {
+        currencyBrowser.setContentView(CURRENCY_BROWSER_LAYOUT_ID);
+        lastId = R.id.currencyBrowserLabel;
     }
 
     private void generateSpanningText(int textId) {
@@ -121,11 +126,11 @@ public class CurrencyBrowserUpdator implements BrowserUpdator {
     }
 
     private void addSpanningElement(ViewGroup layout, View element) {
-        final TableRow row = new TableRow(currencyBrowser);
-        final TableRow.LayoutParams rowParams = new TableRow.LayoutParams();
-        rowParams.span = CURRENCY_BROWSER_COLUMN_COUNT;
-        rowParams.weight = 1;
-        row.addView(element, rowParams);
-        layout.addView(row);
+        final RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.BELOW, lastId);
+        layout.addView(element, layoutParams);
+        element.setId(UUID.randomUUID().hashCode());
+        lastId = element.getId();
+        Logger.info("Adding element with ID " + lastId);
     }
 }
